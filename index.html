@@ -1,0 +1,2738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SIGILLUM MAGORUM — Supreme Council</title>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Federatio Magi">
+<meta name="theme-color" content="#ffffff">
+<meta name="application-name" content="SIGILLUM MAGORUM">
+
+<link id="dynamic-favicon" rel="icon" type="image/png">
+<link id="dynamic-apple-icon" rel="apple-touch-icon">
+<link id="dynamic-manifest" rel="manifest">
+
+<!-- Inter Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Montserrat;wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#ffffff;
+  --surface:#f5f5f7;
+  --surface-2:#fafafc;
+  --line:#e8e8ed;
+  --text:#1d1d1f;
+  --text-2:#6e6e73;
+  --text-3:#a1a1a6;
+  --blue:#0071e3;
+  --navy:#0a1f4d;
+  --red:#d70015;
+  --radius:18px;
+  --safe-t:env(safe-area-inset-top,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--font);
+  font-size:15px;line-height:1.4;letter-spacing:-0.011em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;
+  min-height:100vh;padding-top:var(--safe-t);
+}
+button,input,select,textarea{font-family:inherit;color:inherit;letter-spacing:inherit}
+button{font-size:inherit;background:none;border:none;cursor:pointer}
+input,select,textarea{font-size:16px}
+.hidden{display:none!important}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- Topbar ---------- */
+.topbar{position:relative;z-index:30;background:#fff;border-bottom:1px solid var(--line)}
+.topbar-in{max-width:560px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.dot-live{width:6px;height:6px;border-radius:50%;background:#34c759;animation:pulse 2.6s infinite ease-in-out;display:inline-block}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.icon-btn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.icon-btn:active,.icon-btn:hover{background:var(--surface)}
+.icon-btn svg{width:18px;height:18px}
+.top-actions{display:flex;align-items:center;gap:2px}
+.pill-btn{height:34px;padding:0 14px;border-radius:999px;background:var(--text);color:#fff;font-size:13px;font-weight:500;margin-left:6px}
+.pill-btn:active{opacity:.8}
+
+/* ---------- Layout ---------- */
+main{max-width:560px;margin:0 auto;padding:22px 16px calc(96px + var(--safe-b))}
+.pane{display:none}
+.pane.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:12px;font-weight:500;color:var(--text-2);letter-spacing:.02em}
+.h-large{font-size:30px;font-weight:700;letter-spacing:-0.03em;line-height:1.1;margin-top:4px}
+#today-date-string{color:var(--blue);}
+.h-section{font-size:12px;font-weight:600;color:var(--text-2);letter-spacing:.06em;text-transform:uppercase}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card.soft{background:var(--surface);border-color:transparent}
+.stack{display:flex;flex-direction:column;gap:14px}
+.row{display:flex;align-items:center}
+.between{justify-content:space-between}
+.muted{color:var(--text-2)}
+.small{font-size:12px}
+.sep{height:1px;background:var(--line);margin:14px 0}
+
+/* ---------- Buttons ---------- */
+.btn{height:40px;padding:0 18px;border-radius:999px;font-weight:500;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:opacity .15s,background .15s}
+.btn-primary{background:var(--text);color:#fff}
+.btn-primary:active{opacity:.8}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-secondary{background:var(--surface)}
+.btn-secondary:active{background:var(--line)}
+.btn-ghost{color:var(--blue)}
+.btn-danger{color:var(--red)}
+.btn-block{width:100%}
+.btn-sm{height:32px;padding:0 14px;font-size:13px}
+.btn svg{width:16px;height:16px}
+.link{color:var(--blue);font-size:14px}
+
+/* ---------- Today ---------- */
+.progress-wrap{margin-top:16px}
+.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);margin-bottom:6px}
+.progress{height:4px;border-radius:99px;background:var(--surface);overflow:hidden}
+.progress>i{display:block;height:100%;background:var(--text);border-radius:99px;transition:width .4s ease}
+
+.now-card{margin-top:20px;border-radius:22px;background:var(--surface);padding:20px}
+.now-top{display:flex;align-items:center;justify-content:space-between}
+.now-label{font-size:11px;font-weight:600;color:var(--text-2);display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.08em}
+.now-title{font-size:22px;font-weight:700;letter-spacing:-0.025em;line-height:1.2;margin-top:12px}
+.now-time{font-size:14px;color:var(--text-2);margin-top:4px}
+.now-desc{font-size:14px;color:var(--text-2);margin-top:10px;line-height:1.5}
+.now-actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.next-line{display:flex;justify-content:space-between;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--text-2)}
+.next-line b{color:var(--text);font-weight:500}
+
+.cat{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2);font-weight:500}
+.cat i{width:7px;height:7px;border-radius:50%;display:inline-block}
+
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.quick button{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:500;transition:background .15s}
+.quick button:active{background:var(--surface)}
+.quick svg{width:20px;height:20px}
+
+.timeline-head{display:flex;justify-content:space-between;align-items:baseline;margin:28px 0 6px}
+.tl-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tl-item:last-child{border-bottom:none}
+.tl-check{width:24px;height:24px;border-radius:50%;border:1.5px solid #c7c7cc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;color:#fff}
+.tl-check svg{width:13px;height:13px;opacity:0}
+.tl-check.done{background:var(--text);border-color:var(--text)}
+.tl-check.done svg{opacity:1}
+.tl-body{flex:1;min-width:0}
+.tl-title{font-weight:600;font-size:15px}
+.tl-title.done{color:var(--text-3);text-decoration:line-through}
+.tl-meta{font-size:12px;color:var(--text-2);margin-top:2px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tl-desc{font-size:13px;color:var(--text-2);margin-top:4px;line-height:1.45}
+.tl-item.current .tl-title::after{content:"Now";margin-left:8px;font-size:10px;font-weight:600;background:var(--blue);color:#fff;border-radius:99px;padding:2px 8px;vertical-align:middle;letter-spacing:0}
+.tl-tools{display:flex;gap:2px;flex-shrink:0}
+.tl-tools button{font-size:12px;color:var(--text-2);height:28px;padding:0 8px;border-radius:99px}
+.tl-tools button:active{background:var(--surface)}
+
+/* ---------- Calendar ---------- */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-dow{font-size:11px;color:var(--text-3);text-align:center;padding:4px 0;font-weight:500}
+.cal-day{aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500}
+.cal-day:active{background:var(--surface)}
+.cal-day.today{color:var(--blue);font-weight:700}
+.cal-day.sel{background:var(--text);color:#fff}
+.cal-day.sel.today{color:#fff}
+.cal-day.empty{pointer-events:none}
+
+/* ---------- Lists & forms ---------- */
+.list-item{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.list-item:last-child{border-bottom:none}
+.chk{width:22px;height:22px;border-radius:7px;border:1.5px solid #c7c7cc;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff}
+.chk svg{width:12px;height:12px;opacity:0}
+.chk.done{background:var(--text);border-color:var(--text)}
+.chk.done svg{opacity:1}
+.x-btn{color:var(--text-3);width:28px;height:28px;border-radius:50%;font-size:14px}
+.x-btn:active{background:var(--surface)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:500;color:var(--text-2)}
+.input{width:100%;height:44px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);outline:none;transition:border-color .15s,background .15s}
+textarea.input{height:auto;padding:12px 14px;resize:none;line-height:1.45}
+.input:focus{border-color:var(--blue);background:#fff}
+select.input{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236e6e73' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:99px;background:var(--surface);color:var(--text-2)}
+.badge.active{background:var(--blue);color:#fff}
+.op-card{border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.op-card.active{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.op-preview{margin-top:12px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.op-preview div{display:flex;gap:12px}
+.op-preview span:first-child{color:var(--text-3);width:100px;flex-shrink:0}
+
+/* =====================================================
+   MAGI INTELLIGENCE ID CARDS (DARK CIA SECURITY STYLE)
+   ===================================================== */
+.idc {
+  position: relative;
+  min-height: 270px;
+  border-radius: 18px;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+  background: 
+    radial-gradient(120% 100% at 85% 15%, #18263e 0%, rgba(10, 16, 26, 0) 65%),
+    linear-gradient(165deg, #090e17 0%, #0d1522 55%, #05080d 100%);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+  padding: 16px 20px 20px;
+  transition: all .3s ease;
+}
+.idc-bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.idc-sheen {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.14) 48%, transparent 60%);
+  transform: translateX(-120%); animation: sheen 6s ease-in-out infinite;
+}
+@keyframes sheen { 0%, 55% { transform: translateX(-120%) } 85%, 100% { transform: translateX(120%) } }
+
+.idc-head {
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 2; margin: -16px -20px 16px -20px; padding: 10px 20px;
+  background: rgba(8, 14, 24, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.idc-body {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  max-width: 60%;
+}
+.idc-photo {
+  width: 95px; height: 125px; border-radius: 12px; overflow: hidden; flex-shrink: 0; cursor: pointer;
+  background: rgba(255, 255, 255, .1); border: 1.5px solid rgba(255, 255, 255, .4);
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px -6px rgba(0,0,0,.6);
+}
+.idc-photo img { width: 100%; height: 100%; object-fit: cover; }
+.idc-photo .ini { font-size: 30px; font-weight: 700; letter-spacing: .04em; color: #fff; }
+
+.idc-fields {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.idc-f { min-width: 0; }
+.idc-k { font-size: 8px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: rgba(255, 255, 255, .45); }
+.idc-v { font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.idc-v.big { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+/* Logo Reim chuẩn form 175px (Đã khôi phục lại cho Reim) */
+.idc-big-seal {
+  position: absolute;
+  right: 10px;
+  bottom: 42px;
+  width: 175px;
+  height: 175px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 1;
+  filter: contrast(1.15) brightness(1.1) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.95));
+}
+.idc-big-seal img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; 
+}
+
+/* Thanh Barcode của Reim (Đã khôi phục lại cho Reim) */
+.idc-barcode-wrap {
+  position: absolute;
+  right: 12px;
+  bottom: 2.5px;
+  width: 170px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.idc-barcode {
+  height: 24px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #fff 0px,
+    #fff 3px,
+    transparent 3px,
+    transparent 6px,
+    #fff 6px,
+    #fff 10px,
+    transparent 10px,
+    transparent 12px,
+    #fff 12px,
+    #fff 14px,
+    transparent 14px,
+    transparent 18px,
+    #fff 18px,
+    #fff 22px,
+    transparent 22px,
+    transparent 25px
+  );
+  opacity: 0.95;
+}
+.idc-barcode-num { 
+  font-family: var(--mono); 
+  font-size: 8px; 
+  font-weight: 700;
+  letter-spacing: .2em; 
+  color: rgba(255, 255, 255, 0.75); 
+}
+
+/* =====================================================
+   GIAO DIỆN THẺ ALASKA (AIS) CHUẨN FORM OSI RETRO
+   ===================================================== */
+.idc.theme-alaska {
+  background: #dee8f3 !important;
+  color: #172b4d !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.25), 0 1px 0 #fff inset !important;
+  padding: 12px 18px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-height: 295px !important; /* Tăng chiều cao thẻ để chứa trọn bộ 3 to bự */
+}
+
+/* Ẩn các chi tiết riêng của thẻ Reim khi chuyển sang Alaska */
+.idc.theme-alaska .idc-sheen,
+.idc.theme-alaska .idc-bg,
+.idc.theme-alaska .idc-barcode-wrap,
+.idc.theme-alaska .idc-head,
+.idc.theme-alaska .idc-body,
+.idc.theme-alaska > .idc-big-seal {
+  display: none !important;
+}
+
+/* Khối nội dung riêng của template Alaska */
+.alaska-card-content {
+  display: none;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.idc.theme-alaska .alaska-card-content {
+  display: flex;
+}
+
+.ais-top-notice {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: #475569;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.ais-main-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: #1a335a;
+  letter-spacing: .02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  font-family: -apple-system, BlinkMacSystemFont, "Arial Black", sans-serif;
+}
+.ais-sub-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid #1a335a;
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+}
+.ais-sub-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a335a;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.ais-cert-text {
+  font-size: 8px;
+  font-weight: 600;
+  color: #475569;
+  font-family:  "Inter",  sans-serif;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+
+/* KHU VỰC TRUNG TÂM: CAO HẲN 165PX CHIẾM TRỌN 2 ĐƯỜNG ĐỎ */
+.ais-middle-grid {
+  display: grid;
+  grid-template-columns: 170px 1fr 125px; /* Cột logo 160px, ảnh 125px */
+  align-items: center;
+  justify-items: center;
+  gap: 6px;
+  height: 155px; /* Chiều cao tối đa lấp đầy khoảng trống giữa 2 vạch kẻ */
+  margin: 0;
+}
+
+/* 1. Logo tròn phóng to kịch trần 160px x 160px */
+.ais-seal-col {
+  width: 177px;
+  height: 177px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-7px, -12px);
+}
+.ais-seal-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.22));
+}
+
+/* 2. Chữ AIS kéo dài cao vút 165px chạm sát 2 vạch kẻ */
+.ais-center-letters {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 115px; /* Tăng cỡ chữ lên 160px */
+  font-weight: 900;
+  color: #1a3052;
+  line-height: 0.75;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.05em;
+  transform: translate(-21px, -19px) scaleY(1.86); /* Kéo chữ dài thẳng tắp đụng 2 mép */
+  user-select: none;
+}
+
+/* 3. Khung ảnh kéo dài cao 158px tương xứng */
+.ais-photo-col {
+  width: 120px;
+  height: 158px;
+  border-radius: 4px;
+  border: 1.5px solid #cbd5e1;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  overflow: hidden;
+  background: #cbd5e1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-18px, -14px) scale(0.95);
+}
+.ais-photo-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Khu vực đáy thẻ */
+.ais-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1.5px solid #94a3b8;
+}
+.ais-rank-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ais-rank-title {
+  font-size: 15px;
+  font-weight: 900;
+  color: #1a335a;
+  letter-spacing: .05em;
+  font-family: -apple-system, BlinkMacSystemFont, "Arial Black", sans-serif;
+}
+.ais-dept-text {
+  font-size: 10px;
+  font-weight: 520;
+  color: #334155;
+  font-family:  "Inter",  sans-serif;
+  line-height: 1.50;      /* Khoảng cách 2 dòng vừa vặn, không bị cách quá mức */
+  letter-spacing: 0.0028em;
+  margin-top: 1px;         /* Kéo sát lại gần tiêu đề SPECIAL AGENT */
+}
+
+.ais-issued-box {
+  background: #172d52;
+  color: #fff;
+  padding: 7px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+/* Ép nhận font cho chữ ISSUED TO: */
+.ais-issued-box .lbl {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Arial, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em!important;
+  color: #cbd5e1 !important;
+}
+
+/* Ép nhận font cho chữ TÊN FOX */
+.ais-issued-box .val {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Arial, sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  color: #ffffff !important;
+}
+
+/* =====================================================
+   GIAO DIỆN THẺ ATLANTIS (AID) — CHUẨN MẪU R.P.D SPLIT
+   ===================================================== */
+.idc.theme-atlantis {
+  background: #ffffff !important;
+  color: #101c31 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.25), 0 1px 0 #fff inset !important;
+  padding: 0 !important;
+  min-height: 295px !important;
+  display: flex !important;
+  flex-direction: row !important;
+}
+
+/* Ẩn các chi tiết của Reim và Alaska khi bật Atlantis */
+.idc.theme-atlantis .idc-sheen,
+.idc.theme-atlantis .idc-bg,
+.idc.theme-atlantis .idc-barcode-wrap,
+.idc.theme-atlantis .idc-head,
+.idc.theme-atlantis .idc-body,
+.idc.theme-atlantis > .idc-big-seal,
+.idc.theme-atlantis .alaska-card-content {
+  display: none !important;
+}
+
+.atlantis-card-content {
+  display: none;
+  width: 100%;
+  height: 100%;
+  min-height: 295px;
+}
+.idc.theme-atlantis .atlantis-card-content {
+  display: grid;
+  grid-template-columns: 38% 62%;
+}
+
+/* Nửa trái: Xanh Navy đậm + Con dấu AID + Logo SA */
+.aid-left-side {
+  background: #101c31;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-right: 2px solid #091222;
+}
+.aid-seal-wrapper {
+  width: 135px;
+  height: 135px;
+}
+.aid-seal-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.5));
+}
+.aid-sa-tag {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  color: #8da4c4;
+  font-family: -apple-system, BlinkMacSystemFont, "Arial Black", sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+/* Nửa phải: Nền trắng bố cục R.P.D */
+.aid-right-side {
+  background: #ffffff;
+  padding: 12px 14px 10px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header R.P.D: POLICE / ATLANTIS INTELLIGENCE */
+.aid-rpd-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #101c31;
+  padding-bottom: -30px;
+  margin-bottom: -10px;               /* <-- Khoảng cách từ vạch này xuống chữ Luminous bên dưới */
+  gap: 8px;
+}
+.aid-rpd-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 17.5px !important;
+  font-weight: 900 !important;
+  color: #101c31 !important;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+  text-align: center; /* Căn giữa */
+}
+.aid-rpd-title span {
+  display: block;
+  letter-spacing: 0.09em; /* Giãn cách chữ DIRECTORATE cho vừa vặn cân xứng với dòng trên */
+  font-size: 17.5px;
+}
+.aid-rpd-sub {
+  font-size: 8px;
+  font-weight: 800;
+  color: #101c31;
+  letter-spacing: .05em;
+  margin-top: 5px;
+}
+.aid-mini-seal {
+  width: 26px;
+  height: 26px;
+}
+.aid-mini-seal img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Khu vực thông tin Name & Signature có vạch kẻ ngăn cách */
+.aid-info-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 4px;
+}
+.aid-name-val {
+  font-size: 16px;
+  font-weight: 900;
+  color: #101c31;
+  letter-spacing: .12em;
+  text-align: center;
+  border-bottom: 1px solid #101c31;
+  padding-bottom: 1px;
+}
+.aid-tiny-label {
+  font-size: 7px;
+  color: #64748b;
+  font-style: italic;
+  font-weight: 600;
+  text-align: center;
+  margin-top: -1px;
+}
+.aid-signature-val {
+  font-family: 'Caveat', cursive;
+  font-size: 24px;
+  color: #101c31;
+  text-align: center;
+  line-height: 0.9;
+  border-bottom: 1px solid #101c31;
+  padding: 2px 0;
+}
+
+/* Khu vực đáy: Ảnh bên trái, chức vụ & thẩm quyền bên phải */
+.aid-lower-grid {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 10px;
+  align-items: flex-end;
+  margin-top: 4px;
+}
+.aid-photo-box {
+  width: 82px;
+  height: 102px;
+  background: #cbd5e1;
+  border: 1px solid #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 18px;
+  color: #334155;
+  overflow: hidden;
+  cursor: pointer;
+}
+.aid-photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aid-lower-right {
+  display: flex;
+  flex-direction: column;
+}
+.aid-pos-box {
+  border-bottom: 1px solid #101c31;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: #101c31;
+  padding-bottom: 1px;
+}
+.aid-chief-box {
+  border-bottom: 1px solid #101c31;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 19px;
+  color: #101c31;
+  line-height: 0.95;
+  padding: 1px 0;
+}
+.aid-legal-note {
+  font-size: 5.5px;
+  font-weight: 700;
+  color: #475569;
+  line-height: 1.25;
+  margin-top: 4px;
+  letter-spacing: .01em;
+  text-align: center;
+  text-transform: uppercase;
+}
+/* =====================================================
+   GIAO DIỆN THẺ ATLANTIS (AID) — CHUẨN FORM R.P.D POLICE
+   ===================================================== */
+.idc.theme-atlantis {
+  background: #ffffff !important;
+  color: #101c31 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.25), 0 1px 0 #fff inset !important;
+  padding: 0 !important;
+  height: 295px !important;
+  max-height: 295px !important;
+  min-height: 295px !important;
+  display: block !important;
+  overflow: hidden !important;
+}
+
+/* Ẩn chi tiết của Reim và Alaska khi bật Atlantis */
+.idc.theme-atlantis .idc-sheen,
+.idc.theme-atlantis .idc-bg,
+.idc.theme-atlantis .idc-barcode-wrap,
+.idc.theme-atlantis .idc-head,
+.idc.theme-atlantis .idc-body,
+.idc.theme-atlantis > .idc-big-seal,
+.idc.theme-atlantis .alaska-card-content {
+  display: none !important;
+}
+
+.atlantis-card-content {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+.idc.theme-atlantis .atlantis-card-content {
+  display: grid !important;
+  grid-template-columns: 36% 64% !important;
+  height: 100% !important;
+}
+
+/* CỘT TRÁI: Xanh đen sâu + Con dấu lớn + SA */
+.aid-left-side {
+  background: #111e36;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-right: 2px solid #0d172a;
+  height: 100%;
+  box-sizing: border-box;
+}
+/* Logo nhích lên thêm một chút */
+.aid-seal-wrapper {
+  width: 118px !important;
+  height: 118px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-20px) !important; /* Đẩy logo nhích cao lên trên */
+}
+.aid-seal-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+}
+
+/* Tên nước: Tách 2 dòng, font Arial sắc mảnh, màu bạc kim loại sáng, tuyệt đối không bết nét */
+.aid-country-title {
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif !important;
+  font-size: 8.5px !important;              /* Chữ to rõ ràng, dễ đọc */
+  font-weight: 700 !important;
+  color: #e2eaf4 !important;               /* Màu bạc sáng platinum trùng với viền logo */
+  letter-spacing: 0.08em !important;
+  line-height: 1.35 !important;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: -6px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9); /* 1 lớp bóng nhẹ duy nhất tạo độ nổi, không làm bết chữ */
+}
+
+/* Ký hiệu -AID-: Đồng bộ màu bạc kim loại */
+.aid-code-tag {
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  color: #94a9c4 !important;               /* Sắc bạc ánh xanh dịu mắt */
+  letter-spacing: 0.25em !important;
+  text-align: center;
+  margin-top: 3px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.aid-sa-tag {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  color: #8fa6c5;
+  font-family: -apple-system, BlinkMacSystemFont, "Arial Black", sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+/* CỘT PHẢI: Nền trắng bố cục chuẩn R.P.D */
+.aid-right-side {
+  background: #ffffff;
+  padding: 12px 16px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Khung header: Căn đều 2 bên, tạo khoảng trống cho chữ ở giữa */
+.aid-rpd-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #101c31;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  position: relative; /* Giúp căn chỉnh cân bằng */
+}
+
+.aid-head-text-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: center;
+  padding-left: 20px; /* Bù trừ lực hút của logo bên phải, đưa chữ về đúng tâm giữa thẻ */
+}
+
+.aid-rpd-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 17px !important;
+  font-weight: 900 !important;
+  color: #101c31 !important;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.aid-rpd-title span {
+  display: block;
+  font-size: 17px;
+  letter-spacing: 0.08em; /* Giảm độ giãn chữ, giúp chữ gọn gàng gắn kết */
+  margin-top: 1px;
+}
+
+/* Logo quốc huy: Thu gọn 38px, nằm gọn gàng bên góc phải không lấn vạch kẻ */
+.aid-badge-crest {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aid-badge-crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+.aid-name-val {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: #101c31;
+  letter-spacing: .12em;
+  text-align: center;
+  line-height: 1.1;
+  padding-bottom: 10px; /* <-- THÊM DÒNG NÀY: Nó sẽ đẩy đúng cái vạch thứ 2 tụt xuống dưới! */
+  margin-top: 6px
+}
+
+.aid-signature-val {
+  font-family: 'Caveat', cursive;
+  font-size: 26px;
+  font-weight: 700;
+  color: #101c31;
+  line-height: 0.85;
+  text-align: center;
+  margin: 1px 0;
+}
+.aid-underline {
+  height: 1.5px;
+  background: #101c31;
+  width: 100%;
+  margin-top: -5px; /* Đẩy đường gạch này dịch xuống dưới 4px (bạn có thể tăng lên 5px hoặc 6px tùy ý) */
+}
+
+/* Các nhãn chữ nhỏ xíu (Name, Signature, Position): Font Arial nét mảnh, cực rõ */
+.aid-tiny-label {
+  font-size: 7.5px;
+  color: #475569;
+  font-style: italic;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 1px;
+}
+
+/* Đáy thẻ */
+.aid-lower-grid {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 4px;
+}
+.aid-photo-box {
+  width: 88px;
+  height: 110px;
+  background: #cbd5e1;
+  border: 1.5px solid #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 15px;
+  color: #334155;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.aid-photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aid-lower-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.aid-sub-line {
+  height: 1px;
+  background: #101c31;
+  width: 100%;
+}
+.aid-pos-val {
+  font-size: 11px;
+  font-weight: 700;
+  color: #101c31;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+.aid-chief-sig {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  color: #101c31;
+  line-height: 0.9;
+  text-align: center;
+ transform: translateY(-8px); /* Đẩy chữ Director dịch tụt xuống dưới 6px */
+ margin-top: 10px !important;    /* Đẩy chữ Director dịch tụt xuống dưới */
+  margin-bottom: -3px !important; /* Giữ khoảng cách vừa vặn với vạch bên dưới */
+}
+
+/* Đoạn quy định pháp lý: Nét thanh mảnh, giãn dòng thoáng đãng, đọc rõ từng chữ */
+.aid-legal-note {
+  font-size: 6.2px;
+  font-weight: 500;
+  color: #2b3952;
+  line-height: 1.35;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+}
+
+
+/* Nút chuyển đổi loại thẻ */
+.card-switcher{
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.card-sw-btn{
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all .2s ease;
+  white-space: nowrap;
+}
+.card-sw-btn.active{
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+  box-shadow: 0 3px 10px -2px rgba(0,0,0,0.3);
+}
+
+/* ---------- Tab bar ---------- */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-top:1px solid var(--line);padding:6px 8px calc(6px + var(--safe-b))}
+.tabbar-in{max-width:560px;margin:0 auto;display:flex;justify-content:space-around}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-3);padding:4px 8px;font-size:10px;font-weight:500;transition:color .15s;flex:1}
+.tab svg{width:22px;height:22px}
+.tab.active{color:var(--blue)}
+
+/* ---------- Overlays / sheets ---------- */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.32);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center;z-index:300}
+.overlay.open{display:flex;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.sheet{background:#fff;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;border-radius:24px 24px 0 0;padding:8px 20px calc(24px + var(--safe-b));animation:up .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.grabber{width:36px;height:5px;border-radius:99px;background:var(--line);margin:6px auto 14px}
+.sheet-title{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+.sheet-desc{font-size:13px;color:var(--text-2);margin-top:4px;line-height:1.5}
+.opt{width:100%;text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:background .15s}
+.opt:active{background:var(--surface)}
+.opt-title{font-weight:600;font-size:14px}
+.opt-sub{font-size:12px;color:var(--text-2);margin-top:2px}
+.opt-tag{font-size:12px;color:var(--text-2);font-weight:500;flex-shrink:0}
+
+.fullscreen{position:fixed;inset:0;background:#fff;z-index:200;display:none;flex-direction:column;padding:calc(18px + var(--safe-t)) 22px calc(18px + var(--safe-b))}
+.fullscreen.open{display:flex;animation:fadeIn .25s ease}
+.fs-in{max-width:520px;width:100%;margin:0 auto;flex:1;display:flex;flex-direction:column;min-height:0}
+.fs-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px}
+
+/* ---------- Startup Splash ---------- */
+#startup-splash{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s ease}
+#startup-splash.out{opacity:0;pointer-events:none}
+.splash-logo{width:170px;height:170px;border-radius:50%;overflow:hidden;animation:pop .7s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:none;opacity:1}}
+.splash-name{font-size:24px;font-weight:800;letter-spacing:.14em;text-align:center;margin-top:6px}
+.splash-sub{font-size:12px;color:#d9bf7a;margin-top:4px;text-align:center;letter-spacing:.22em;text-transform:uppercase}
+.splash-bar{width:180px;height:4px;border-radius:99px;background:rgba(255,255,255,0.15);overflow:hidden;margin-top:16px}
+
+@keyframes runSplashBar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+.splash-bar i{
+  display:block;
+  height:100%;
+  width:0%;
+  background:#d9bf7a;
+  animation: runSplashBar 3.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+.splash-status{font-size:11px;color:rgba(255,255,255,0.5);height:16px;transition:opacity .2s;letter-spacing:.08em}
+
+/* ---------- Briefing ---------- */
+.b-step{display:none;flex-direction:column;gap:20px;flex:1;min-height:0}
+.b-step.on{display:flex;animation:fade .25s ease}
+.b-title{font-size:28px;font-weight:700;letter-spacing:-0.03em;line-height:1.15}
+.b-opt{width:100%;text-align:left;padding:18px;border:1px solid var(--line);border-radius:16px;font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:space-between;transition:background .15s,border-color .15s}
+.b-opt:active{background:var(--surface);border-color:var(--blue)}
+.b-opt small{display:block;font-weight:400;font-size:13px;color:var(--text-2);margin-top:2px}
+.b-opt svg{width:16px;height:16px;color:var(--text-3);flex-shrink:0}
+.b-progress{height:3px;border-radius:99px;background:var(--surface);overflow:hidden;margin-bottom:6px}
+.b-progress i{display:block;height:100%;background:var(--blue);transition:width .3s}
+.scroll{overflow-y:auto;min-height:0;flex:1;-webkit-overflow-scrolling:touch}
+.sched-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;align-items:center}
+.sched-row:last-child{border-bottom:none}
+.sched-row .t{color:var(--text-3);width:100px;flex-shrink:0}
+.sched-row .n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+#toast{position:fixed;top:calc(12px + var(--safe-t));left:50%;transform:translate(-50%,-14px);z-index:600;background:rgba(29,29,31,.92);color:#fff;font-size:13px;font-weight:500;padding:10px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:all .25s ease;max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+#stealth-overlay{z-index:250}
+.stealth-title{font-size:34px;font-weight:700;letter-spacing:-0.035em;line-height:1.1}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scroll::-webkit-scrollbar,.sheet::-webkit-scrollbar{width:0}
+</style>
+</head>
+
+<body>
+
+<!-- Màn hình chào Splash SIGILLUM MAGORUM -->
+<div id="startup-splash"  onclick="completeStartup()" style="background:#080e1a;color:#fff;cursor:pointer;">
+  <div class="splash-logo" style="box-shadow:none;background:transparent;">
+    <img src="federatio-magi-seal.png" alt="Federatio Magi Seal" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 26px rgba(0,0,0,0.95));">
+  </div>
+  <div style="text-align:center;">
+    <div class="splash-name" style="letter-spacing:.14em;font-size:23px;font-weight:800;">SIGILLUM MAGORUM</div>
+    <div class="splash-sub" style="color:#d9bf7a;letter-spacing:.22em;margin-top:5px;font-size:11.5px;">QUINQUE MAGI - QUATTUOR NATIONES</div>
+  </div>
+  <div class="splash-bar" style="background:rgba(255,255,255,0.12);"><i id="splash-bar-fill"></i></div>
+  <div id="splash-status" class="splash-status" style="color:rgba(255,255,255,0.6);letter-spacing:.12em;">SYNCHRONIZING MAGI NETWORK…</div>
+</div>
+
+<div id="toast"><span id="toast-message"></span></div>
+
+<!-- Header -->
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="top-actions">
+      <button id="undo-btn" class="icon-btn hidden" onclick="executeUndo()" title="Undo" aria-label="Undo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/></svg>
+      </button>
+      <button id="pwa-update-btn" class="icon-btn" onclick="triggerPwaForceUpdate()" title="Update app" aria-label="Update app">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+      </button>
+      <button class="icon-btn" onclick="toggleStealthMode(true)" title="Stealth mode" aria-label="Stealth mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22"/></svg>
+      </button>
+      <button class="pill-btn" onclick="startFieldBriefing()">Briefing</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- TODAY -->
+  <section id="tab-content-today" class="pane active">
+    <div id="today-op-badge" class="eyebrow">OPERATION ALPHA</div>
+    <h1 id="today-date-string" class="h-large">Today</h1>
+
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>Progress</span><span id="today-progress-counter" class="num">0 / 0</span></div>
+      <div class="progress"><i id="today-progress-bar" style="width:0%"></i></div>
+    </div>
+
+    <div class="now-card">
+      <div class="now-top">
+        <div class="now-label"><span class="dot-live"></span><span>In progress</span></div>
+        <span id="hero-current-cat"></span>
+      </div>
+      <div id="hero-current-title" class="now-title">—</div>
+      <div id="hero-current-range" class="now-time num">—</div>
+      <div id="hero-current-desc" class="now-desc"></div>
+      <div class="now-actions">
+        <button id="hero-complete-btn" class="btn btn-primary" onclick="toggleCurrentObjectiveStatus()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="hero-complete-text">Complete</span>
+        </button>
+        <button class="btn btn-secondary" onclick="addTimeCurrent(15)">+15 min</button>
+        <button class="btn btn-ghost" onclick="editCurrentObjective()">Edit</button>
+      </div>
+      <div class="next-line">
+        <span id="hero-next-text">Next —</span>
+        <span id="hero-next-cat"></span>
+      </div>
+    </div>
+
+    <div class="quick">
+      <button onclick="openSituationModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Incident
+      </button>
+      <button onclick="openAddEventModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add block
+      </button>
+      <button onclick="openToolsSheet()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+        Tools
+      </button>
+    </div>
+
+    <div class="timeline-head">
+      <span class="h-section">Schedule</span>
+      <span id="timeline-count-label" class="small muted"></span>
+    </div>
+    <div id="timeline-events-container"></div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section id="tab-content-calendar" class="pane">
+    <div class="eyebrow">Calendar</div>
+    <h1 id="cal-title" class="h-large">Month</h1>
+    <div class="card" style="margin-top:18px"><div id="cal-grid" class="cal-grid"></div></div>
+    <div class="card soft" style="margin-top:14px">
+      <div class="eyebrow" id="cal-sel-label">Selected day</div>
+      <div id="cal-sel-op" style="font-weight:600;font-size:17px;margin-top:4px">—</div>
+      <div id="cal-sel-desc" class="small muted" style="margin-top:2px"></div>
+      <div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap" id="cal-sel-actions"></div>
+    </div>
+    <div class="timeline-head"><span class="h-section">Quick deploy</span></div>
+    <div id="calendar-operations-list"></div>
+  </section>
+
+  <!-- MISSIONS -->
+  <section id="tab-content-missions" class="pane">
+    <div class="eyebrow">Missions</div>
+    <h1 class="h-large">Mission Inbox</h1>
+    <p class="muted small" style="margin-top:6px">Missions say <em>what</em> to do. The schedule says <em>when</em>.</p>
+    <form onsubmit="handleCreateMission(event)" class="card stack" style="margin-top:18px;gap:10px">
+      <input type="text" id="mission-input-title" required placeholder="Add a new mission…" class="input">
+      <div class="row" style="gap:8px">
+        <select id="mission-input-cat" class="input" style="flex:1">
+          <option value="GERMAN">German</option><option value="ENGLISH">English</option>
+          <option value="WORK">Work</option><option value="PERSONAL">Personal</option>
+        </select>
+        <input type="time" id="mission-input-time" value="21:00" class="input" style="flex:1">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Add mission</button>
+    </form>
+    <div id="missions-list-container" style="margin-top:10px"></div>
+  </section>
+
+  <!-- OPERATIONS -->
+  <section id="tab-content-operations" class="pane">
+    <div class="row between" style="align-items:flex-end">
+      <div>
+        <div class="eyebrow">Schedule templates</div>
+        <h1 class="h-large">Operations</h1>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="saveTodayAsReusableOperation()">+ Save today</button>
+    </div>
+    <div id="operations-list-container" class="stack" style="margin-top:20px"></div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="tab-content-control" class="pane">
+    <div class="eyebrow">Profile</div>
+    <h1 class="h-large">Agent Credentials</h1>
+
+    <!-- Bộ chuyển đổi loại thẻ tình báo linh hoạt (Card Switcher) -->
+    <div class="card-switcher">
+      <button id="sw-btn-reim" class="card-sw-btn active" onclick="switchCardNation('reim')">
+        <span>🦅</span> Reim Empire (IIB)
+      </button>
+      <button id="sw-btn-alaska" class="card-sw-btn" onclick="switchCardNation('alaska')">
+        <span>🧭</span> Alaska (AIS)
+      </button>
+      <button id="sw-btn-atlantis" class="card-sw-btn" onclick="switchCardNation('atlantis')">
+        <span>🔱</span> Atlantis (AID)
+      </button>
+    </div>
+
+    <!-- TẤM THẺ ĐẶC VỤ TỐI MẬT (HỖ TRỢ 2 TEMPLATE RIÊNG BIỆT) -->
+    <div id="agent-id-card-element" class="idc" style="margin-top:12px">
+      
+      <!-- ================= TEMPLATE 1: REIM EMPIRE (CIA DARK STYLE) ================= -->
+      <svg id="idc-bg" class="idc-bg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"></svg>
+      <div class="idc-sheen"></div>
+      <div class="idc-head">
+        <div id="card-display-agency" style="font-size:12px;font-weight:700;letter-spacing:.18em">REIM EMPIRE INTELLIGENCE</div>
+        <div id="card-display-subagency" style="font-size:8.5px;color:rgba(255,255,255,0.55);font-family:var(--mono)">OFFICIAL CREDENTIAL</div>
+      </div>
+      <div class="idc-body">
+        <div class="idc-photo" onclick="document.getElementById('avatar-file-input').click()" title="Tap to change photo">
+          <div id="agent-avatar-display-box" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div>
+        </div>
+        <div class="idc-fields">
+          <div class="idc-f">
+            <div class="idc-k">ORGANIZATION</div>
+            <div id="card-display-division" style="font-size:14px;font-weight:800;letter-spacing:.02em">IIB · SPECIAL OPS</div>
+          </div>
+          <div class="idc-f">
+            <div class="idc-k">Codename</div>
+            <div id="agent-display-codename" class="idc-v big">FOX</div>
+          </div>
+          <div class="idc-f">
+            <div class="idc-k">Clearance</div>
+            <div id="agent-display-clearance" class="idc-v">LEVEL 04</div>
+          </div>
+          <div class="idc-f">
+            <div class="idc-k">Status</div>
+            <div class="idc-v" style="color:#4cd964">ACTIVE</div>
+          </div>
+          <div class="idc-f">
+            <div class="idc-k">Agent ID</div>
+            <div id="agent-display-id" class="idc-v mono">IIB-FOX-081026</div>
+          </div>
+        </div>
+      </div>
+      <div class="idc-big-seal">
+        <img id="card-display-seal" src="reim-iib-seal.png" alt="Seal">
+      </div>
+      <div class="idc-barcode-wrap">
+        <div class="idc-barcode"></div>
+        <div id="card-display-barcode" class="idc-barcode-num">REIM-IIB-89104-SEC</div>
+      </div>
+
+      <!-- ================= TEMPLATE 2: ALASKA AIS (OSI RETRO STYLE) ================= -->
+      <div class="alaska-card-content">
+        <div>
+         <div class="ais-main-title">ALASKA INTELLIGENCE SERVICE</div>
+          <div class="ais-sub-title-row">
+            <span class="ais-sub-title">FIELD OPERATIONS BUREAU</span>
+            <span class="ais-cert-text">OFFICIAL APPOINTMENT · HIGH CLEARANCE</span>
+          </div>
+        </div>
+
+        <div class="ais-middle-grid">
+          <div class="ais-seal-col">
+            <img src="alaska-ais-seal.png" alt="AIS Seal">
+          </div>
+          <div class="ais-center-letters">AIS</div>
+          <div class="ais-photo-col" onclick="document.getElementById('avatar-file-input').click()" title="Tap to change photo">
+            <div id="alaska-photo-target" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#cbd5e1;color:#1e293b;font-weight:800;font-size:24px;">FOX</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="ais-bottom-row">
+            <div class="ais-rank-col">
+              <div class="ais-rank-title">SPECIAL AGENT</div>
+              <div class="ais-dept-text">DEPARTMENT OF STRATEGIC INVESTIGATION<br>SECURITY &amp; INTELLIGENCE WING</div>
+            </div>
+            <div class="ais-issued-box">
+              <span class="lbl">ISSUED TO:</span>
+              <span id="alaska-issued-name" class="val">FOX</span>
+            </div>
+          </div>
+     
+        </div>
+      </div><!-- ================= TEMPLATE 3: ATLANTIS AID (RPD SPLIT STYLE) ================= -->
+      <div class="atlantis-card-content">
+        <!-- NỬA TRÁI: NAVY ĐẬM + LOGO AID TO + SA -->
+     <div class="aid-left-side">
+       <div class="aid-seal-wrapper">
+         <img src="atlantis-aid-seal.png" alt="AID Seal">
+       </div>
+       <div class="aid-country-title">The United Kingdom<br>of Atlantis</div>
+       <div class="aid-code-tag">-AID-</div>
+       <div class="aid-sa-tag">SA</div>
+     </div>
+
+        <!-- NỬA PHẢI: BỐ CỤC CHUẨN R.P.D -->
+        <div class="aid-right-side">
+          <!-- Header: Dòng to trên, dòng nhỏ dưới, bên phải là Quốc huy hoàng gia -->
+          <div class="aid-rpd-head">
+            <div class="aid-head-text-group">
+              <div class="aid-rpd-title">ATLANTIS INTELLIGENCE<br><span>DIRECTORATE</span></div>
+            </div>
+            <div class="aid-badge-crest">
+              <img src="atlantis-coat-of-arms.png" alt="Atlantis Crest">
+            </div>
+          </div>
+
+          <!-- Tên và Chữ ký CĂN GIỮA HOÀN TOÀN -->
+          <div class="aid-info-lines">
+            <div class="aid-row-item">
+              <div class="aid-name-val" id="atlantis-name-display">BON</div>
+              <div class="aid-tiny-label">Name</div>
+            </div>
+            <div class="aid-row-item">
+              <div class="aid-signature-val" id="atlantis-sig-display">Bon</div>
+              <div class="aid-underline"></div>
+              <div class="aid-tiny-label">Signature</div>
+            </div>
+          </div>
+
+          <!-- Khối đáy: Ảnh + Position + Chief + Đoạn thẩm quyền rõ nét -->
+          <div class="aid-lower-grid">
+            <div class="aid-photo-box" onclick="document.getElementById('avatar-file-input').click()" title="Tap to change photo">
+              <div id="atlantis-photo-target">BON</div>
+            </div>
+
+            <div class="aid-lower-right">
+              <div class="aid-pos-block">
+                <div class="aid-pos-val">Special Agent</div>
+                <div class="aid-sub-line"></div>
+                <div class="aid-tiny-label">Position</div>
+              </div>
+
+              <div class="aid-chief-block">
+                <div class="aid-chief-sig" style="transform: translateY(-10px) !important;">Director</div>
+                <div class="aid-sub-line"></div>
+                <div class="aid-tiny-label">Chief of Directorate</div>
+              </div>
+
+              <div class="aid-legal-note">
+                AUTHORIZED TO CONDUCT CLASSIFIED OPERATIONS, INVESTIGATIONS AND LAW ENFORCEMENT DUTIES AS APPROVED BY MAGI REGULATION.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="row between">
+        <span style="font-weight:600">Personal file</span>
+        <button id="dossier-toggle-btn" class="link" onclick="toggleDossierEditor()">Edit</button>
+      </div>
+      <form id="profile-editor-form" onsubmit="saveProfileChanges(event)" class="stack hidden" style="margin-top:16px;gap:12px">
+        <div class="grid2">
+          <div class="field"><label>Codename</label><input type="text" id="input-codename" required class="input"></div>
+          <div class="field"><label>Clearance</label>
+            <select id="input-clearance" class="input">
+              <option>LEVEL 01</option><option>LEVEL 02</option><option>LEVEL 03</option><option>LEVEL 04</option><option>LEVEL 05</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Primary objective</label><input type="text" id="input-primary" required class="input"></div>
+        <div class="field"><label>Secondary objective</label><input type="text" id="input-secondary" required class="input"></div>
+        <div class="grid2">
+          <div class="field"><label>Language level</label><input type="text" id="input-lang" required class="input"></div>
+          <div class="field"><label>Special interest</label><input type="text" id="input-interest" required class="input"></div>
+        </div>
+        <div class="row" style="gap:8px;flex-wrap:wrap">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('avatar-file-input').click()">Choose photo</button>
+          <button type="button" class="btn btn-danger btn-sm" onclick="removeAgentPhoto()">Remove photo</button>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Save changes</button>
+      </form>
+      <div id="profile-summary" style="margin-top:10px"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div style="font-weight:600">App update</div>
+      <p class="small muted" style="margin-top:4px">After deploying a new version to Vercel, tap this to clear the cache and load the latest code. Your data stays intact.</p>
+      <button class="btn btn-secondary btn-block" style="margin-top:12px" onclick="triggerPwaForceUpdate()">Refresh from Vercel</button>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div style="font-weight:600">Data</div>
+      <p class="small muted" style="margin-top:4px">Everything is stored on this device. Export a backup or restore the defaults.</p>
+      <div class="row" style="gap:8px;margin-top:12px">
+        <button class="btn btn-secondary" onclick="exportBackupData()">Export JSON</button>
+        <button class="btn btn-danger" style="margin-left:auto" onclick="factoryResetDatabase()">Restore defaults</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Tab bar -->
+<nav class="tabbar">
+  <div class="tabbar-in">
+    <button class="tab active" id="tab-btn-today" onclick="switchTab('today')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>Today
+    </button>
+    <button class="tab" id="tab-btn-calendar" onclick="switchTab('calendar')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="17" rx="3"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2.5" x2="8" y2="6.5"/><line x1="16" y1="2.5" x2="16" y2="6.5"/></svg>Calendar
+    </button>
+    <button class="tab" id="tab-btn-missions" onclick="switchTab('missions')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h8"/></svg>Missions
+    </button>
+    <button class="tab" id="tab-btn-operations" onclick="switchTab('operations')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Templates
+    </button>
+    <button class="tab" id="tab-btn-control" onclick="switchTab('control')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>Profile
+    </button>
+  </div>
+</nav>
+
+<!-- Field briefing -->
+<div id="briefing-modal" class="fullscreen">
+  <div class="fs-in">
+    <div class="fs-top">
+     <div class="row" style="gap:8px;font-size:12px;color:var(--text-2);font-weight:500"><span class="dot-live"></span>MAGI secure channel</div>
+      <button class="link" onclick="closeFieldBriefing()">Close</button>
+    </div>
+
+    <div id="briefing-progress-wrapper">
+      <div class="b-progress"><i id="briefing-progress-bar" style="width:33%"></i></div>
+      <div class="row between small muted" style="margin-bottom:22px"><span id="briefing-progress-title">Question 1 · German class</span><span id="briefing-step-counter" class="num">1 / 3</span></div>
+    </div>
+
+    <div id="briefing-screen-1" class="b-step">
+      <div>
+        <div class="eyebrow">Daily briefing</div>
+        <h2 class="b-title" style="margin-top:6px">Do you have German class today?</h2>
+      </div>
+      <div class="stack" style="gap:10px">
+        <button class="b-opt" onclick="answerBriefingQuestion('hasGerman', true, 2)"><span>Yes — class in Saigon</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="b-opt" onclick="answerBriefingQuestion('hasGerman', false, 2)"><span>No — day off</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <div id="briefing-screen-2" class="b-step">
+      <div>
+        <button class="link" onclick="setBriefingScreen(1)">‹ Back</button>
+        <h2 class="b-title" style="margin-top:8px">Nail class this afternoon?</h2>
+      </div>
+      <div class="stack" style="gap:10px">
+        <button class="b-opt" onclick="answerBriefingQuestion('hasNail', true, 3)"><span>Yes — nail class</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="b-opt" onclick="answerBriefingQuestion('hasNail', false, 3)"><span>No — café / home</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <div id="briefing-screen-3" class="b-step">
+      <div>
+        <button class="link" onclick="setBriefingScreen(2)">‹ Back</button>
+        <h2 class="b-title" style="margin-top:8px">How is your energy today?</h2>
+      </div>
+      <div class="stack" style="gap:10px">
+        <button class="b-opt" onclick="answerBriefingQuestion('energy','FULL POWER',4)"><span>Full power<small>Ready for high-intensity study blocks</small></span></button>
+        <button class="b-opt" onclick="answerBriefingQuestion('energy','NORMAL',4)"><span>Normal<small>Balanced, standard study blocks</small></span></button>
+        <button class="b-opt" onclick="answerBriefingQuestion('energy','LOW ENERGY',4)"><span>Low<small>Energy-saving mode, zero pressure</small></span></button>
+      </div>
+    </div>
+
+    <div id="briefing-screen-4" class="b-step" style="align-items:center;justify-content:center;text-align:center">
+      <img src="federatio-magi-seal.png" alt="Federatio Magi Seal" style="width:80px;height:80px;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,0,0,0.25));margin-bottom:8px;">
+      <h2 style="font-size:20px;font-weight:700">Analyzing…</h2>
+      <div class="small muted" style="line-height:1.8">
+        <div id="intel-log-german"></div><div id="intel-log-nail"></div><div id="intel-log-energy"></div>
+      </div>
+    </div>
+
+    <div id="briefing-screen-5" class="b-step">
+      <div>
+        <div class="eyebrow">Recommended for today</div>
+        <h2 id="rec-op-code" class="b-title" style="margin-top:6px">OPERATION ALPHA</h2>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;min-height:0;flex:1">
+        <div class="row between">
+          <span id="rec-op-name" style="font-weight:600;font-size:16px"></span>
+          <span id="rec-op-badge" class="badge"></span>
+        </div>
+        <p id="rec-op-obj" class="small muted" style="margin-top:6px"></p>
+        <div class="sep"></div>
+        <div class="row between small muted" style="margin-bottom:4px"><span>Schedule</span><span id="rec-op-count"></span></div>
+        <div id="rec-op-schedule-preview" class="scroll"></div>
+      </div>
+      <div class="stack" style="gap:8px">
+        <button class="btn btn-blue btn-block" style="height:48px" onclick="deployRecommendedOperation()">Deploy this Operation</button>
+        <button class="btn btn-secondary btn-block" onclick="showOperationsSelectionScreen()">Choose another Operation</button>
+      </div>
+    </div>
+
+    <div id="briefing-screen-6" class="b-step">
+      <div><button class="link" onclick="setBriefingScreen(5)">‹ Back</button></div>
+      <div>
+        <h2 class="b-title" style="font-size:24px">Choose an Operation</h2>
+        <p class="small muted" style="margin-top:4px">Preview and deploy any saved schedule.</p>
+      </div>
+      <div id="briefing-all-operations-list" class="scroll stack"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Incident -->
+<div id="situation-modal" class="overlay" onclick="if(event.target===this)closeSituationModal()">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <div class="sheet-title">Report an incident</div>
+    <p class="sheet-desc">Later blocks are re-timed automatically. Completed blocks are never changed.</p>
+    <div class="stack" style="gap:8px;margin-top:16px">
+      <button class="opt" onclick="applySituationReport('TRAFFIC_DELAY_30',30,'Traffic delay +30 min')"><div><div class="opt-title">Traffic delay</div><div class="opt-sub">Dong Nai ⇄ Saigon slower than planned</div></div><span class="opt-tag">+30m</span></button>
+      <button class="opt" onclick="applySituationReport('TRAFFIC_DELAY_60',60,'Heavy traffic +60 min')"><div><div class="opt-title">Heavy traffic</div><div class="opt-sub">Pushes the rest of the day back</div></div><span class="opt-tag">+60m</span></button>
+      <button class="opt" onclick="applySituationReport('NAIL_EXTENDED',45,'Nail session ran long +45 min')"><div><div class="opt-title">Nail session ran long</div><div class="opt-sub">Client overran, evening study shifts later</div></div><span class="opt-tag">+45m</span></button>
+      <button class="opt" onclick="applySituationReport('GERMAN_CANCEL',0,'Studying at home')"><div><div class="opt-title">Not going to Saigon</div><div class="opt-sub">Drop the trips, study Kursbuch at home</div></div><span class="opt-tag">Home</span></button>
+    </div>
+    <button class="btn btn-secondary btn-block" style="margin-top:14px" onclick="closeSituationModal()">Close</button>
+  </div>
+</div>
+
+<!-- Shift -->
+<div id="shift-modal" class="overlay" onclick="if(event.target===this)closeShiftPrompt()">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <div class="sheet-title">Shift later blocks?</div>
+    <p id="shift-modal-desc" class="sheet-desc"></p>
+    <div class="stack" style="gap:8px;margin-top:16px">
+      <button class="btn btn-primary btn-block" onclick="confirmShiftPrompt(true)">Shift all later blocks (<span id="shift-modal-delta" class="num">+15m</span>)</button>
+      <button class="btn btn-secondary btn-block" onclick="confirmShiftPrompt(false)">Only extend this block</button>
+      <button class="btn btn-ghost btn-block" onclick="closeShiftPrompt()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Event editor -->
+<div id="event-editor-modal" class="overlay" onclick="if(event.target===this)closeEventEditorModal()">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <div class="sheet-title" id="event-editor-title">Details</div>
+    <form id="event-editor-form" onsubmit="handleSaveEventForm(event)" class="stack" style="margin-top:16px;gap:12px">
+      <input type="hidden" id="edit-event-id">
+      <div class="field"><label>Title</label><input type="text" id="edit-event-title" required class="input"></div>
+      <div class="grid2">
+        <div class="field"><label>Start</label><input type="time" id="edit-event-start" required class="input"></div>
+        <div class="field"><label>End</label><input type="time" id="edit-event-end" required class="input"></div>
+      </div>
+      <div class="field"><label>Category</label>
+        <select id="edit-event-cat" class="input">
+          <option value="GERMAN">German</option><option value="ENGLISH">English</option><option value="STUDY">Study</option>
+          <option value="WORK">Work</option><option value="TRAVEL">Travel</option><option value="PERSONAL">Personal</option>
+          <option value="RECOVERY">Recovery</option><option value="SLEEP">Sleep</option><option value="TRANSITION">Transition</option>
+        </select>
+      </div>
+      <div class="field"><label>Notes</label><textarea id="edit-event-desc" rows="3" class="input" placeholder="Goals, content…"></textarea></div>
+      <div class="row" style="gap:8px;margin-top:4px">
+        <button type="button" id="edit-event-delete-btn" class="btn btn-danger" onclick="handleDeleteCurrentEditingEvent()">Delete</button>
+        <button type="button" class="btn btn-secondary" style="margin-left:auto" onclick="closeEventEditorModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Tools -->
+<div id="tools-sheet" class="overlay" onclick="if(event.target===this)closeToolsSheet()">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <div class="sheet-title">Tools</div>
+    <div class="stack" style="gap:8px;margin-top:16px">
+      <button class="opt" onclick="triggerPwaForceUpdate()"><div><div class="opt-title">Sync &amp; update app</div><div class="opt-sub">Clear cache, load latest code, keep your data</div></div><span class="opt-tag">↻</span></button>
+      <button class="opt" onclick="saveTodayAsReusableOperation()"><div><div class="opt-title">Save today as template</div><div class="opt-sub">Store the current schedule in Operations</div></div><span class="opt-tag">›</span></button>
+      <button class="opt" onclick="openPasteScheduleModal()"><div><div class="opt-title">Paste a text schedule</div><div class="opt-sub">Example: 08:00–12:30 German class</div></div><span class="opt-tag">›</span></button>
+    </div>
+    <button class="btn btn-secondary btn-block" style="margin-top:14px" onclick="closeToolsSheet()">Close</button>
+  </div>
+</div>
+
+<!-- Paste -->
+<div id="paste-modal" class="overlay" onclick="if(event.target===this)closePasteModal()">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <div class="sheet-title">Paste schedule</div>
+    <div id="paste-input-view" class="stack" style="margin-top:12px;gap:12px">
+      <p class="sheet-desc" style="margin:0">One time range per line. The app turns each into a schedule block.</p>
+      <div class="card soft small num" style="line-height:1.7;padding:12px 14px">05:30–06:15 Wake up, hygiene<br>06:15–07:45 Dong Nai to Saigon<br>08:00–12:30 German class</div>
+      <textarea id="paste-raw-textarea" rows="6" class="input" placeholder="Paste your schedule here…"></textarea>
+      <button class="btn btn-primary btn-block" onclick="parseRawScheduleText()">Detect schedule</button>
+    </div>
+    <div id="paste-preview-view" class="stack hidden" style="margin-top:12px;gap:12px">
+      <div id="paste-preview-count" style="font-weight:600"></div>
+      <div id="paste-preview-list" class="card soft" style="max-height:240px;overflow-y:auto;padding:6px 14px"></div>
+      <div class="grid2">
+        <button class="btn btn-primary" onclick="commitParsedSchedule(false)">Use for today</button>
+        <button class="btn btn-secondary" onclick="commitParsedSchedule(true)">Save as template</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stealth -->
+<div id="stealth-overlay" class="fullscreen">
+  <div class="fs-in">
+    <div class="fs-top">
+      <div class="row" style="gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--text-2)"><span class="dot-live"></span>STEALTH MODE</div>
+      <div id="stealth-clock" class="small muted num">--:--:--</div>
+    </div>
+    <div style="margin:auto 0;padding:20px 0">
+      <div id="stealth-op-code" class="eyebrow"></div>
+      <div id="stealth-title" class="stealth-title" style="margin-top:8px"></div>
+      <div id="stealth-range" class="num" style="font-size:18px;color:var(--text-2);margin-top:8px"></div>
+      <div id="stealth-desc" class="muted" style="margin-top:12px;line-height:1.5"></div>
+      <div class="row" style="gap:8px;margin-top:28px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="toggleCurrentObjectiveStatus(); updateStealthView();">Complete</button>
+        <button class="btn btn-secondary" onclick="addTimeCurrent(15)">+15 min</button>
+        <button class="btn btn-secondary" onclick="openSituationModal()">Incident</button>
+      </div>
+      <div id="stealth-next-preview" class="small muted" style="margin-top:32px;padding-top:14px;border-top:1px solid var(--line)"></div>
+    </div>
+    <div class="row between small muted" style="padding-top:12px;border-top:1px solid var(--line)">
+      <span>Minimal view</span>
+      <button class="link" style="font-weight:600" onclick="toggleStealthMode(false)">Back to HQ</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   HELPERS
+   ========================================================= */
+const clone = (o) => JSON.parse(JSON.stringify(o));
+const $ = (id) => document.getElementById(id);
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function dateKey(d){
+  d = d || new Date();
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+function longDate(d){
+  return (d || new Date()).toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric" });
+}
+function timeToMins(t){
+  if (!t || !t.includes(":")) return 0;
+  const [h, m] = t.split(":").map(Number);
+  return (h || 0) * 60 + (m || 0);
+}
+function minsToTime(m){
+  const n = ((m % 1440) + 1440) % 1440;
+  return String(Math.floor(n/60)).padStart(2,"0") + ":" + String(n%60).padStart(2,"0");
+}
+function getDuration(s, e){
+  let d = timeToMins(e) - timeToMins(s);
+  if (d <= 0) d += 1440;
+  return d;
+}
+function formatDuration(mins){
+  const h = Math.floor(mins/60), m = mins % 60;
+  if (h === 0) return m + "m";
+  if (m === 0) return h + "h";
+  return h + "h " + m + "m";
+}
+const CAT = {
+  GERMAN:"#ff9f0a", ENGLISH:"#0a84ff", STUDY:"#5e5ce6", WORK:"#8e8e93",
+  TRAVEL:"#c7c7cc", PERSONAL:"#30b0c7", RECOVERY:"#30d158", SLEEP:"#636366", TRANSITION:"#c7c7cc"
+};
+const catLabel = c => c.charAt(0) + c.slice(1).toLowerCase();
+const catHTML = c => `<span class="cat"><i style="background:${CAT[c]||"#c7c7cc"}"></i>${esc(catLabel(c))}</span>`;
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+/* =========================================================
+   PWA ICONS + FORCE UPDATE
+   ========================================================= */
+function setupDynamicPwaIcons(){
+  try{
+    const img = new Image();
+    img.onload = function(){
+      const c = document.createElement("canvas");
+      c.width = 512; c.height = 512;
+      c.getContext("2d").drawImage(img, 0, 0, 512, 512);
+      const png = c.toDataURL("image/png");
+      if ($("dynamic-apple-icon")) $("dynamic-apple-icon").href = png;
+      if ($("dynamic-favicon")) $("dynamic-favicon").href = png;
+      const manifest = {
+        name:"Sigillum Magorum — Supreme Council", short_name:"Magi Council",
+        start_url: window.location.href.split("#")[0].split("?")[0], display:"standalone",
+        background_color:"#080e1a", theme_color:"#080e1a",
+        icons:[{ src:png, sizes:"192x192", type:"image/png" },{ src:png, sizes:"512x512", type:"image/png", purpose:"any maskable" }]
+      };
+      if ($("dynamic-manifest")) $("dynamic-manifest").href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], { type:"application/json" }));
+    };
+    img.src = "federatio-magi-seal.png";
+  }catch(err){ console.warn("Icon generator fallback", err); }
+}
+
+async function triggerPwaForceUpdate(){
+  showToast("Clearing cache and loading the latest version…");
+  const btn = $("pwa-update-btn");
+  if (btn) btn.classList.add("spin");
+  try{
+    if ("caches" in window){
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+    if ("serviceWorker" in navigator){
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const r of regs) await r.unregister();
+    }
+  }catch(e){ console.warn("Cache clean error", e); }
+  setTimeout(() => {
+    window.location.replace(window.location.origin + window.location.pathname + "?_ais_update=" + Date.now());
+  }, 600);
+}
+
+/* =========================================================
+   HỆ THỐNG CÁC LOẠI THẺ TÌNH BÁO (CARD NATIONS CONFIG)
+   ========================================================= */
+const CARD_NATIONS = {
+  reim: {
+    id: "reim",
+    name: "Reim Empire (IIB)",
+    agency: "REIM EMPIRE INTELLIGENCE",
+    subagency: "OFFICIAL CREDENTIAL",
+    division: "IIB · SPECIAL OPS",
+    prefix: "IIB",
+    sealImage: "reim-iib-seal.png",
+    barcodeText: "REIM-IIB-89104-SEC",
+    themeBg: "radial-gradient(120% 100% at 85% 15%, #18263e 0%, rgba(10, 16, 26, 0) 65%), linear-gradient(165deg, #090e17 0%, #0d1522 55%, #05080d 100%)",
+    statusColor: "#4cd964"
+  },
+  alaska: {
+    id: "alaska",
+    name: "Alaska (AIS)",
+    agency: "ALASKA INTELLIGENCE SERVICE",
+    subagency: "OFFICIAL CREDENTIAL",
+    division: "AIS · FIELD DIVISION",
+    prefix: "AIS",
+    sealImage: "alaska-ais-seal.png",
+    barcodeText: "AIS-SEC-92140-VERITAS",
+    themeBg: "radial-gradient(120% 100% at 85% 15%, #132d4a 0%, rgba(8, 18, 32, 0) 65%), linear-gradient(165deg, #06111f 0%, #091a2e 55%, #040811 100%)",
+    statusColor: "#4cd964"
+  },
+  atlantis: {
+    id: "atlantis",
+    name: "Atlantis (AID)",
+    prefix: "AID",
+    sealImage: "atlantis-aid-seal.png"
+  },
+
+};
+
+let currentCardNation = localStorage.getItem("magi_active_card") || "reim";
+
+function switchCardNation(nationKey){
+  if (!CARD_NATIONS[nationKey]) return;
+  currentCardNation = nationKey;
+  localStorage.setItem("magi_active_card", nationKey);
+  
+  // Highlight nút đang chọn
+  document.querySelectorAll(".card-sw-btn").forEach(btn => btn.classList.remove("active"));
+  const activeBtn = $("sw-btn-" + nationKey);
+  if (activeBtn) activeBtn.classList.add("active");
+  
+  renderCardNationUI();
+  showToast(`Switched to ${CARD_NATIONS[nationKey].name}`);
+}
+
+function renderCardNationUI(){
+  const conf = CARD_NATIONS[currentCardNation] || CARD_NATIONS.reim;
+  const idcEl = document.getElementById("agent-id-card-element");
+  const codename = state.profile.codename || "FOX";
+  
+  // Cập nhật thông tin thẻ Reim
+  if ($("card-display-agency")) $("card-display-agency").innerText = conf.agency;
+  if ($("card-display-subagency")) $("card-display-subagency").innerText = conf.subagency;
+  if ($("card-display-division")) $("card-display-division").innerText = conf.division;
+  if ($("card-display-barcode")) $("card-display-barcode").innerText = conf.barcodeText;
+  if ($("card-display-seal")) {
+    $("card-display-seal").src = conf.sealImage;
+    $("card-display-seal").alt = conf.name;
+  }
+  if ($("agent-display-id")) $("agent-display-id").innerText = `${conf.prefix}-${codename}-081026`;
+
+  // Đồng bộ ảnh chân dung và tên vào template Alaska
+  const alaskaPhotoBox = $("alaska-photo-target");
+  if (alaskaPhotoBox) {
+    alaskaPhotoBox.innerHTML = state.profile.photoDataUrl
+      ? `<img src="${esc(state.profile.photoDataUrl)}" style="width:100%;height:100%;object-fit:cover;" alt="">`
+      : codename;
+  }
+  if ($("alaska-issued-name")) $("alaska-issued-name").innerText = codename;
+
+  // Đồng bộ tên vào thẻ Atlantis
+  if ($("atlantis-name-display")) $("atlantis-name-display").innerText = codename;
+  if ($("atlantis-sig-display")) $("atlantis-sig-display").innerText = codename;
+  const atlantisPhoto = $("atlantis-photo-target");
+  if (atlantisPhoto) {
+    atlantisPhoto.innerHTML = state.profile.photoDataUrl
+      ? `<img src="${esc(state.profile.photoDataUrl)}" style="width:100%;height:100%;object-fit:cover;" alt="">`
+      : codename;
+  }
+
+  if (idcEl) {
+    idcEl.classList.remove("theme-alaska", "theme-atlantis");
+    if (currentCardNation === "alaska") {
+      idcEl.classList.add("theme-alaska");
+      idcEl.style.background = "";
+    } else if (currentCardNation === "atlantis") {
+      idcEl.classList.add("theme-atlantis");
+      idcEl.style.background = "";
+    } else {
+      idcEl.style.background = conf.themeBg;
+    }
+  }
+}
+
+/* =========================================================
+   DATA
+   ========================================================= */
+const INITIAL_OPERATIONS = [
+  { id:"op-alpha", code:"OPERATION ALPHA", name:"German + Nail Class", badge:"WEEKDAY STANDARD",
+    objective:"German Class in SG, Nail Station Study, Deep Evening German & IELTS", tag:"HIGH ENGAGEMENT",
+    events:[
+      { id:"e1", startTime:"05:30", endTime:"06:15", title:"Wake Up & Field Preparation", category:"PERSONAL", description:"Wake up, hygiene, breakfast, prep vehicle." },
+      { id:"e2", startTime:"06:15", endTime:"07:45", title:"Transit: Đồng Nai → Sài Gòn", category:"TRAVEL", description:"Focus on driving safety. Clear morning mindset." },
+      { id:"e3", startTime:"07:45", endTime:"08:00", title:"Arrival & Staging", category:"TRANSITION", description:"Park, water, quick vocabulary warmup." },
+      { id:"e4", startTime:"08:00", endTime:"12:30", title:"GERMAN CLASS IN SAIGON", category:"GERMAN", description:"Grammar, articles, Kursbuch, direct classroom immersion." },
+      { id:"e5", startTime:"12:30", endTime:"14:15", title:"Transit: Sài Gòn → Đồng Nai", category:"TRAVEL", description:"Return trip. Focus on safety on the road." },
+      { id:"e6", startTime:"14:15", endTime:"18:00", title:"Nail Class & Stealth Study", category:"WORK", description:"Practice sets; stealth IELTS Reading & German review when quiet." },
+      { id:"e7", startTime:"18:00", endTime:"20:00", title:"Nail Work / Production", category:"WORK", description:"Execute practical set; mental vocabulary recall." },
+      { id:"e8", startTime:"20:00", endTime:"21:00", title:"HQ Return, Shower & Dinner", category:"PERSONAL", description:"Shower, rinse off chemicals & dust, eat clean, recover." },
+      { id:"e9", startTime:"21:00", endTime:"22:15", title:"Deep German: Grammar & Reflex", category:"GERMAN", description:"Complex grammar, monologue reflex, SRS deck injection." },
+      { id:"e10", startTime:"22:15", endTime:"23:00", title:"IELTS Maintenance", category:"ENGLISH", description:"Cambridge Reading analysis, collocation extraction." },
+      { id:"e11", startTime:"23:00", endTime:"23:30", title:"Debrief & Decompression", category:"RECOVERY", description:"Humor reading, storyline ideas, relax mind." },
+      { id:"e12", startTime:"23:30", endTime:"05:30", title:"Sleep & Cellular Recharge", category:"SLEEP", description:"Mandatory rest for next cycle." }
+    ]},
+  { id:"op-bravo", code:"OPERATION BRAVO", name:"German + Home / Cafe", badge:"FULL CONSOLIDATION",
+    objective:"German Morning in SG, Afternoon & Night Home Study", tag:"MAX RECOVERY",
+    events:[
+      { id:"eb1", startTime:"05:30", endTime:"06:15", title:"Wake Up & Staging", category:"PERSONAL", description:"Hygiene, breakfast, bag check." },
+      { id:"eb2", startTime:"06:15", endTime:"07:45", title:"Transit: Đồng Nai → Sài Gòn", category:"TRAVEL", description:"Safe driving." },
+      { id:"eb3", startTime:"07:45", endTime:"08:00", title:"Station Arrival", category:"TRANSITION", description:"Water, park, stage notebooks." },
+      { id:"eb4", startTime:"08:00", endTime:"12:30", title:"GERMAN CLASS IN SAIGON", category:"GERMAN", description:"Grammar, articles, oral drills." },
+      { id:"eb5", startTime:"12:30", endTime:"14:15", title:"Transit: Sài Gòn → Đồng Nai", category:"TRAVEL", description:"Safe return to HQ." },
+      { id:"eb6", startTime:"14:15", endTime:"14:40", title:"Power Nap Recharge", category:"RECOVERY", description:"20 min restorative nap." },
+      { id:"eb7", startTime:"14:40", endTime:"17:30", title:"Afternoon Study: German & IELTS", category:"STUDY", description:"Heavy workbook exercises & Cambridge tests." },
+      { id:"eb8", startTime:"17:30", endTime:"18:00", title:"Shower & Early Dinner", category:"PERSONAL", description:"Wash away fatigue, clean meal." },
+      { id:"eb9", startTime:"18:00", endTime:"20:00", title:"German Intensive Session", category:"GERMAN", description:"Deep grammar structure, Lego sentence building." },
+      { id:"eb10", startTime:"20:00", endTime:"21:30", title:"IELTS Cambridge Dissection", category:"ENGLISH", description:"Cambridge Reading/Listening with deep error analysis." },
+      { id:"eb11", startTime:"21:30", endTime:"22:30", title:"Private Sanctuary", category:"PERSONAL", description:"Music, app exploring, chill out." },
+      { id:"eb12", startTime:"22:30", endTime:"23:30", title:"Light Reading & SRS Sync", category:"RECOVERY", description:"Flashcards + comedy reading." },
+      { id:"eb13", startTime:"23:30", endTime:"05:30", title:"Sleep Protocol", category:"SLEEP", description:"Target sleep cycle." }
+    ]},
+  { id:"op-sat-a", code:"OPERATION SATURDAY A", name:"Saturday Nail Expedition", badge:"WEEKEND ACTIVE",
+    objective:"Consolidation Morning + Afternoon Nail Station + Night Dual Strike", tag:"WEEKEND VARIANT",
+    events:[
+      { id:"esa1", startTime:"07:30", endTime:"08:30", title:"Casual Wake & Nutrition", category:"PERSONAL", description:"No 05:30 alarm, slow launch." },
+      { id:"esa2", startTime:"08:30", endTime:"11:30", title:"Practical Morning Strike (3H)", category:"GERMAN", description:"Synthesize week grammar & batch cards into app." },
+      { id:"esa3", startTime:"11:30", endTime:"13:30", title:"Home Lunch & Rest", category:"RECOVERY", description:"Lunch and recharge." },
+      { id:"esa4", startTime:"14:00", endTime:"18:00", title:"Nail Operation & Cam Study", category:"WORK", description:"Nail spot, free AC, Reading drills, socialize." },
+      { id:"esa5", startTime:"18:00", endTime:"20:00", title:"Nail Set Production", category:"WORK", description:"Perform necessary sets." },
+      { id:"esa6", startTime:"20:00", endTime:"21:00", title:"Transit Home & Dinner", category:"PERSONAL", description:"Shower & clean up." },
+      { id:"esa7", startTime:"21:00", endTime:"22:45", title:"Night Strike 1: B1 & German Audio", category:"GERMAN", description:"Difficult exercises + accent shadowing." },
+      { id:"esa8", startTime:"22:45", endTime:"23:45", title:"Night Strike 2: Cambridge IELTS", category:"ENGLISH", description:"Keep IELTS 7.5 form." },
+      { id:"esa9", startTime:"23:45", endTime:"01:00", title:"Unrestricted Sanctuary", category:"PERSONAL", description:"Stories, tech sandbox. Sunday has late wake." }
+    ]},
+  { id:"op-sat-b", code:"OPERATION SATURDAY B", name:"Saturday Home / Cafe Sanctuary", badge:"WEEKEND DEEP",
+    objective:"Complete Independence, German Mastery & Archaeology", tag:"SOLO RECOVERY",
+    events:[
+      { id:"esb1", startTime:"07:30", endTime:"08:30", title:"Gentle Awakening & Breakfast", category:"PERSONAL", description:"No rush, relaxed start." },
+      { id:"esb2", startTime:"08:30", endTime:"11:30", title:"Pragmatic Consolidation (3H)", category:"GERMAN", description:"Weekly German framework review." },
+      { id:"esb3", startTime:"11:30", endTime:"13:30", title:"Lunch & Midday Reset", category:"RECOVERY", description:"Home lunch and nap." },
+      { id:"esb4", startTime:"13:30", endTime:"17:30", title:"Unbounded Afternoon (4H)", category:"STUDY", description:"Private room or favorite cafe. Heavy exercises & monologue." },
+      { id:"esb5", startTime:"17:30", endTime:"18:30", title:"Shower & Dinner", category:"PERSONAL", description:"Clean up by 18:30." },
+      { id:"esb6", startTime:"18:30", endTime:"21:00", title:"Private World: Archaeology / British RP", category:"ENGLISH", description:"Archaeology docs, RP English accent practice, pure chill." },
+      { id:"esb7", startTime:"21:00", endTime:"23:30", title:"Night Dual Strike: German + English", category:"GERMAN", description:"Lego building, Cambridge traps analysis." },
+      { id:"esb8", startTime:"23:30", endTime:"01:00", title:"Relaxation & Slumber", category:"SLEEP", description:"Sleep whenever ready." }
+    ]},
+  { id:"op-sunday", code:"OPERATION SUNDAY", name:"Sunday Battery Defense", badge:"RECOVERY ONLY",
+    objective:"Full Recharge, Gentle Passive Immersion, Zero Heavy Burden", tag:"DEFENSE MODE",
+    events:[
+      { id:"esu1", startTime:"08:00", endTime:"11:30", title:"Passive German Immersion (2.5H)", category:"GERMAN", description:"Podcasts, sound texture, archaeology in English. No pressure." },
+      { id:"esu2", startTime:"11:30", endTime:"13:30", title:"Family Lunch & Total Reset", category:"PERSONAL", description:"Relax body with family." },
+      { id:"esu3", startTime:"13:30", endTime:"17:30", title:"Unbounded Private Space (4H)", category:"RECOVERY", description:"YouTube, play with dog Ki, monologue, zero heavy study." },
+      { id:"esu4", startTime:"17:30", endTime:"19:30", title:"Shower, Meal & Vehicle Check", category:"PERSONAL", description:"Gas, tire check, check bike for Monday morning transit." },
+      { id:"esu5", startTime:"19:30", endTime:"21:30", title:"Solo Night Block: Monday Prep (2H)", category:"GERMAN", description:"Preview Monday vocabulary & swipe SRS cards." },
+      { id:"esu6", startTime:"21:30", endTime:"22:30", title:"Decompression & Monologue Script", category:"PERSONAL", description:"Humor reading, prepare staging." },
+      { id:"esu7", startTime:"22:30", endTime:"23:30", title:"Gear Staging & Readiness", category:"TRANSITION", description:"Pack backpack & documents. Ready to grab and go at 05:30." },
+      { id:"esu8", startTime:"23:30", endTime:"05:30", title:"Mandatory Sleep", category:"SLEEP", description:"Ready for Monday 05:30 launch." }
+    ]},
+  { id:"op-delta", code:"OPERATION DELTA", name:"Low Energy Minimalist", badge:"LOW POWER",
+    objective:"Preserve Health, Core Maintenance Only, Zero Guilt", tag:"HEALTH DEFENSE",
+    events:[
+      { id:"ed1", startTime:"06:00", endTime:"07:00", title:"Gentle Awakening & Warm Tea", category:"PERSONAL", description:"Take it slow, warm hydration." },
+      { id:"ed2", startTime:"08:00", endTime:"10:00", title:"Passive Listening & Review", category:"GERMAN", description:"Audio only, no high-intensity output." },
+      { id:"ed3", startTime:"12:00", endTime:"13:30", title:"Nourishing Meal & Sleep", category:"RECOVERY", description:"Extended rest." },
+      { id:"ed4", startTime:"15:00", endTime:"17:00", title:"Light Flashcards & Notes", category:"GERMAN", description:"Casual review only." },
+      { id:"ed5", startTime:"19:00", endTime:"20:00", title:"Gentle Walk & Dinner", category:"PERSONAL", description:"Fresh air, unwind." },
+      { id:"ed6", startTime:"21:00", endTime:"22:00", title:"IELTS Audio or English Fiction", category:"ENGLISH", description:"Stress-free immersion." },
+      { id:"ed7", startTime:"22:30", endTime:"06:30", title:"Extended Sleep", category:"SLEEP", description:"Full cellular recovery." }
+    ]}
+];
+
+const INITIAL_MISSIONS = [
+  { id:"m1", title:"Review B1 Wechselpräpositionen (Two-way prepositions)", completed:false, category:"GERMAN", targetTime:"21:00" },
+  { id:"m2", title:"Import 30 new words into SRS flashcards", completed:true, category:"GERMAN", targetTime:"21:30" },
+  { id:"m3", title:"Cambridge 18 - Reading Test 2 Section 1 & 2", completed:false, category:"ENGLISH", targetTime:"22:15" },
+  { id:"m4", title:"British accent monologue practice (Archaeology clip)", completed:false, category:"ENGLISH", targetTime:"18:30" }
+];
+
+const INITIAL_PROFILE = {
+  codename:"FOX", agentName:"Field Agent Fox", agentId:"FOX-081026", clearanceLevel:"LEVEL 04",
+  primaryObjective:"GERMANY / PFLEGE B2", secondaryObjective:"IELTS 7.5+",
+  languageLevel:"GERMAN B1 (ADVANCING)", specialInterest:"ARCHAEOLOGY & BRITISH RP", photoDataUrl:""
+};
+
+function suggestedOpIdFor(d){
+  const wd = d.getDay();
+  if (wd === 0) return "op-sunday";
+  if (wd === 6) return "op-sat-a";
+  return "op-alpha";
+}
+function buildToday(op, d){
+  return {
+    dateKey: dateKey(d || new Date()),
+    opId: op.id, opCode: op.code, opName: op.name,
+    events: clone(op.events).map(e => ({ ...e, status:"UPCOMING" }))
+  };
+}
+
+const state = {
+  profile: clone(INITIAL_PROFILE),
+  operations: clone(INITIAL_OPERATIONS),
+  today: null,
+  missions: clone(INITIAL_MISSIONS),
+  undoStack: [],
+  briefing: { currentStep:1, answers:{ hasGerman:null, hasNail:null, energy:null }, recommendedOp:null },
+  shiftPending: null,
+  parsedItems: [],
+  calSelected: dateKey()
+};
+
+(function loadState(){
+  try{
+    const p = localStorage.getItem("agent_hq_profile"); if (p) state.profile = { ...state.profile, ...JSON.parse(p) };
+    const o = localStorage.getItem("agent_hq_ops"); if (o) state.operations = JSON.parse(o);
+    const m = localStorage.getItem("agent_hq_missions"); if (m) state.missions = JSON.parse(m);
+    const t = localStorage.getItem("agent_hq_today"); if (t) state.today = JSON.parse(t);
+  }catch(e){ console.warn("Storage load fallback", e); }
+
+  if (!state.today || !Array.isArray(state.today.events) || state.today.dateKey !== dateKey()){
+    const op = state.operations.find(o => o.id === suggestedOpIdFor(new Date())) || state.operations[0];
+    state.today = buildToday(op);
+  }
+})();
+
+function saveState(){
+  try{
+    localStorage.setItem("agent_hq_profile", JSON.stringify(state.profile));
+    localStorage.setItem("agent_hq_ops", JSON.stringify(state.operations));
+    localStorage.setItem("agent_hq_today", JSON.stringify(state.today));
+    localStorage.setItem("agent_hq_missions", JSON.stringify(state.missions));
+  }catch(e){}
+}
+
+/* =========================================================
+   UI UTILS
+   ========================================================= */
+let toastTimer = null;
+function showToast(msg){
+  $("toast-message").innerText = msg;
+  $("toast").classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("toast").classList.remove("show"), 2400);
+}
+const openOverlay = id => $(id).classList.add("open");
+const closeOverlay = id => $(id).classList.remove("open");
+
+function pushUndo(){
+  state.undoStack.unshift(clone(state.today.events));
+  if (state.undoStack.length > 8) state.undoStack.pop();
+  $("undo-btn").classList.remove("hidden");
+}
+function executeUndo(){
+  if (!state.undoStack.length) return;
+  state.today.events = state.undoStack.shift();
+  if (!state.undoStack.length) $("undo-btn").classList.add("hidden");
+  saveState(); renderTodayView();
+  showToast("Undone");
+}
+
+/* =========================================================
+   TODAY
+   ========================================================= */
+function getCurrentEventIndex(){
+  const evs = state.today.events;
+  if (!evs.length) return -1;
+  const now = new Date();
+  const cur = now.getHours()*60 + now.getMinutes();
+  for (let i = 0; i < evs.length; i++){
+    const s = timeToMins(evs[i].startTime), e = timeToMins(evs[i].endTime);
+    if (e <= s){ if (cur >= s || cur < e) return i; }
+    else if (cur >= s && cur < e) return i;
+  }
+  const nextIdx = evs.findIndex(ev => ev.status !== "COMPLETED" && timeToMins(ev.startTime) > cur);
+  if (nextIdx !== -1) return nextIdx;
+  const firstUn = evs.findIndex(ev => ev.status !== "COMPLETED");
+  return firstUn !== -1 ? firstUn : evs.length - 1;
+}
+
+function renderTodayView(){
+  const evs = state.today.events;
+  const total = evs.length;
+  const done = evs.filter(e => e.status === "COMPLETED").length;
+
+  $("today-op-badge").innerText = state.today.opCode;
+  $("today-date-string").innerText = longDate();
+  $("today-progress-counter").innerText = `${done} / ${total}`;
+  $("today-progress-bar").style.width = (total ? Math.round(done/total*100) : 0) + "%";
+  $("timeline-count-label").innerText = `${total} blocks`;
+
+  const activeIdx = getCurrentEventIndex();
+  const active = evs[activeIdx];
+  const next = evs[activeIdx + 1] || null;
+
+  if (active){
+    $("hero-current-title").innerText = active.title;
+    $("hero-current-range").innerText = `${active.startTime} – ${active.endTime} · ${formatDuration(getDuration(active.startTime, active.endTime))}`;
+    $("hero-current-desc").innerText = active.description || "";
+    $("hero-current-cat").innerHTML = catHTML(active.category);
+    const isDone = active.status === "COMPLETED";
+    $("hero-complete-btn").className = "btn " + (isDone ? "btn-secondary" : "btn-primary");
+    $("hero-complete-text").innerText = isDone ? "Completed" : "Complete";
+  } else {
+    $("hero-current-title").innerText = "No schedule yet";
+    $("hero-current-range").innerText = "Add a block or choose an Operation";
+    $("hero-current-desc").innerText = "";
+    $("hero-current-cat").innerHTML = "";
+  }
+  if (next){
+    $("hero-next-text").innerHTML = `Next · <b class="num">${esc(next.startTime)}</b> ${esc(next.title)}`;
+    $("hero-next-cat").innerHTML = catHTML(next.category);
+  } else {
+    $("hero-next-text").innerText = active ? "This is the last block today" : "—";
+    $("hero-next-cat").innerHTML = "";
+  }
+
+  $("timeline-events-container").innerHTML = evs.map((ev, i) => {
+    const isDone = ev.status === "COMPLETED";
+    return `
+      <div class="tl-item ${i === activeIdx && !isDone ? "current" : ""}">
+        <button class="tl-check ${isDone ? "done" : ""}" onclick="toggleEventStatus('${ev.id}')" aria-label="Complete">${CHECK_SVG}</button>
+        <div class="tl-body">
+          <div class="tl-title ${isDone ? "done" : ""}">${esc(ev.title)}</div>
+          <div class="tl-meta"><span class="num">${esc(ev.startTime)} – ${esc(ev.endTime)}</span><span>·</span><span>${formatDuration(getDuration(ev.startTime, ev.endTime))}</span>${catHTML(ev.category)}</div>
+          ${ev.description && !isDone ? `<div class="tl-desc">${esc(ev.description)}</div>` : ""}
+        </div>
+        <div class="tl-tools">
+          <button onclick="promptAddTime('${ev.id}',15)">+15m</button>
+          <button onclick="openEditEventModal('${ev.id}')">Edit</button>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function toggleEventStatus(id){
+  pushUndo();
+  state.today.events = state.today.events.map(e => e.id === id ? { ...e, status: e.status === "COMPLETED" ? "UPCOMING" : "COMPLETED" } : e);
+  saveState(); renderTodayView();
+}
+function toggleCurrentObjectiveStatus(){
+  const cur = state.today.events[getCurrentEventIndex()];
+  if (cur) toggleEventStatus(cur.id);
+}
+function promptAddTime(id, mins){
+  const ev = state.today.events.find(e => e.id === id);
+  if (!ev) return;
+  const newEnd = minsToTime(timeToMins(ev.endTime) + mins);
+  state.shiftPending = { id, delta:mins, newEnd };
+  $("shift-modal-delta").innerText = `+${mins}m`;
+  $("shift-modal-desc").innerText = `You extended "${ev.title}" by ${mins} minutes (until ${newEnd}). Shift the blocks after it as well?`;
+  openOverlay("shift-modal");
+}
+function addTimeCurrent(mins){
+  const cur = state.today.events[getCurrentEventIndex()];
+  if (cur) promptAddTime(cur.id, mins);
+}
+function confirmShiftPrompt(shiftAll){
+  if (!state.shiftPending) return;
+  pushUndo();
+  const { id, delta, newEnd } = state.shiftPending;
+  let after = false;
+  state.today.events = state.today.events.map(ev => {
+    if (ev.id === id){ after = true; return { ...ev, endTime:newEnd }; }
+    if (shiftAll && after){
+      return { ...ev, startTime:minsToTime(timeToMins(ev.startTime) + delta), endTime:minsToTime(timeToMins(ev.endTime) + delta) };
+    }
+    return ev;
+  });
+  closeShiftPrompt();
+  saveState(); renderTodayView();
+  showToast(shiftAll ? `Later blocks shifted (+${delta}m)` : "Block extended");
+}
+function closeShiftPrompt(){ state.shiftPending = null; closeOverlay("shift-modal"); }
+
+/* Incident */
+function openSituationModal(){ openOverlay("situation-modal"); }
+function closeSituationModal(){ closeOverlay("situation-modal"); }
+function applySituationReport(type, delta, label){
+  pushUndo();
+  const idx = getCurrentEventIndex();
+  if (type === "GERMAN_CANCEL"){
+    state.today.events = state.today.events
+      .map((ev, i) => {
+        if (i >= idx && ev.status !== "COMPLETED" && ev.category === "GERMAN" && /SAIGON/i.test(ev.title)){
+          return { ...ev, title:"HOME KURSBUCH STUDY (No trip to Saigon)", description:"Study the Kursbuch at your desk at home. Stay focused." };
+        }
+        return ev;
+      })
+      .filter((ev, i) => !(i >= idx && ev.category === "TRAVEL" && ev.status !== "COMPLETED"));
+  } else if (delta > 0){
+    state.today.events = state.today.events.map((ev, i) => {
+      if (ev.status === "COMPLETED") return ev;
+      if (i === idx) return { ...ev, endTime:minsToTime(timeToMins(ev.endTime) + delta) };
+      if (i > idx) return { ...ev, startTime:minsToTime(timeToMins(ev.startTime) + delta), endTime:minsToTime(timeToMins(ev.endTime) + delta) };
+      return ev;
+    });
+  }
+  closeSituationModal();
+  saveState(); renderTodayView(); updateStealthView();
+  showToast(`Applied: ${label}`);
+}
+
+/* Event editor */
+function openEditEventModal(id){
+  const ev = state.today.events.find(e => e.id === id);
+  if (!ev) return;
+  $("event-editor-title").innerText = "Edit block";
+  $("edit-event-id").value = ev.id;
+  $("edit-event-title").value = ev.title;
+  $("edit-event-start").value = ev.startTime;
+  $("edit-event-end").value = ev.endTime;
+  $("edit-event-cat").value = ev.category;
+  $("edit-event-desc").value = ev.description || "";
+  $("edit-event-delete-btn").classList.remove("hidden");
+  openOverlay("event-editor-modal");
+}
+function openAddEventModal(){
+  const n = new Date();
+  const start = minsToTime(Math.ceil((n.getHours()*60 + n.getMinutes())/5)*5);
+  $("event-editor-title").innerText = "New block";
+  $("edit-event-id").value = "";
+  $("edit-event-title").value = "";
+  $("edit-event-start").value = start;
+  $("edit-event-end").value = minsToTime(timeToMins(start) + 60);
+  $("edit-event-cat").value = "GERMAN";
+  $("edit-event-desc").value = "";
+  $("edit-event-delete-btn").classList.add("hidden");
+  openOverlay("event-editor-modal");
+}
+function closeEventEditorModal(){ closeOverlay("event-editor-modal"); }
+function sortEvents(){
+  state.today.events = state.today.events
+    .map((e, i) => ({ e, i }))
+    .sort((a, b) => timeToMins(a.e.startTime) - timeToMins(b.e.startTime) || a.i - b.i)
+    .map(x => x.e);
+}
+function handleSaveEventForm(e){
+  e.preventDefault();
+  pushUndo();
+  const id = $("edit-event-id").value;
+  const data = {
+    title: $("edit-event-title").value.trim(),
+    startTime: $("edit-event-start").value,
+    endTime: $("edit-event-end").value,
+    category: $("edit-event-cat").value,
+    description: $("edit-event-desc").value.trim()
+  };
+  if (id){
+    state.today.events = state.today.events.map(ev => ev.id === id ? { ...ev, ...data } : ev);
+    showToast("Updated");
+  } else {
+    state.today.events.push({ id:`ev-manual-${Date.now()}`, ...data, status:"UPCOMING" });
+    showToast("Added to schedule");
+  }
+  sortEvents();
+  closeEventEditorModal();
+  saveState(); renderTodayView();
+}
+function handleDeleteCurrentEditingEvent(){
+  const id = $("edit-event-id").value;
+  if (!id) return;
+  pushUndo();
+  state.today.events = state.today.events.filter(e => e.id !== id);
+  closeEventEditorModal();
+  saveState(); renderTodayView();
+  showToast("Deleted");
+}
+function editCurrentObjective(){
+  const cur = state.today.events[getCurrentEventIndex()];
+  if (cur) openEditEventModal(cur.id);
+}
+
+/* =========================================================
+   BRIEFING
+   ========================================================= */
+function startFieldBriefing(){
+  state.briefing = { currentStep:1, answers:{ hasGerman:null, hasNail:null, energy:null }, recommendedOp:null };
+  setBriefingScreen(1);
+  $("briefing-modal").classList.add("open");
+}
+function closeFieldBriefing(){ $("briefing-modal").classList.remove("open"); }
+function setBriefingScreen(n){
+  state.briefing.currentStep = n;
+  for (let i = 1; i <= 6; i++) $(`briefing-screen-${i}`).classList.remove("on");
+  $(`briefing-screen-${n}`).classList.add("on");
+  const wrap = $("briefing-progress-wrapper");
+  if (n <= 3){
+    wrap.classList.remove("hidden");
+    $("briefing-progress-bar").style.width = Math.round(n/3*100) + "%";
+    $("briefing-step-counter").innerText = `${n} / 3`;
+    $("briefing-progress-title").innerText = ["", "Question 1 · German class", "Question 2 · Nail class", "Question 3 · Energy"][n];
+  } else wrap.classList.add("hidden");
+}
+function answerBriefingQuestion(key, val, next){
+  state.briefing.answers[key] = val;
+  setTimeout(() => {
+    if (next !== 4){ setBriefingScreen(next); return; }
+    const a = state.briefing.answers;
+    setBriefingScreen(4);
+    $("intel-log-german").innerText = `German class: ${a.hasGerman ? "Yes (Saigon)" : "Day off"}`;
+    $("intel-log-nail").innerText = `Nail class: ${a.hasNail ? "Yes" : "Home / café"}`;
+    $("intel-log-energy").innerText = `Energy: ${a.energy}`;
+    setTimeout(() => {
+      let chosen;
+      if (a.energy === "LOW ENERGY") chosen = "op-delta";
+      else if (!a.hasGerman && !a.hasNail) chosen = "op-sat-b";
+      else if (a.hasGerman && !a.hasNail) chosen = "op-bravo";
+      else if (!a.hasGerman && a.hasNail) chosen = "op-sat-a";
+      else chosen = "op-alpha";
+      state.briefing.recommendedOp = state.operations.find(o => o.id === chosen) || state.operations[0];
+      showRecommendationView(state.briefing.recommendedOp);
+    }, 2500);
+  }, 120);
+}
+function schedRows(events){
+  return events.map(ev => `<div class="sched-row"><span class="t num">${esc(ev.startTime)} – ${esc(ev.endTime)}</span><span class="n">${esc(ev.title)}</span></div>`).join("");
+}
+function showRecommendationView(op){
+  $("rec-op-code").innerText = op.code;
+  $("rec-op-name").innerText = op.name;
+  $("rec-op-badge").innerText = op.badge;
+  $("rec-op-obj").innerText = op.objective;
+  $("rec-op-count").innerText = `${op.events.length} blocks`;
+  $("rec-op-schedule-preview").innerHTML = schedRows(op.events);
+  setBriefingScreen(5);
+}
+function deployRecommendedOperation(){
+  if (!state.briefing.recommendedOp) return;
+  deployOperation(state.briefing.recommendedOp);
+  closeFieldBriefing();
+}
+function showOperationsSelectionScreen(){
+  $("briefing-all-operations-list").innerHTML = state.operations.map(op => `
+    <div class="card">
+      <div class="row between"><span style="font-weight:600">${esc(op.name)}</span><span class="badge">${esc(op.badge)}</span></div>
+      <div class="small muted" style="margin-top:2px">${esc(op.code)}</div>
+      <div style="max-height:130px;overflow-y:auto;margin-top:10px">${schedRows(op.events)}</div>
+      <button class="btn btn-primary btn-block" style="margin-top:12px" onclick="deployOperationFromSelector('${op.id}')">Deploy</button>
+    </div>`).join("");
+  setBriefingScreen(6);
+}
+function deployOperationFromSelector(opId){
+  const op = state.operations.find(o => o.id === opId);
+  if (!op) return;
+  deployOperation(op);
+  if ($("briefing-modal").classList.contains("open")) closeFieldBriefing();
+}
+function deployOperation(op){
+  pushUndo();
+  state.today = buildToday(op);
+  saveState(); renderTodayView(); renderOperationsView();
+  switchTab("today");
+  showToast(`${op.code} deployed`);
+}
+
+/* =========================================================
+   PROFILE + ID CARD BACKGROUND
+   ========================================================= */
+function buildIdBackground(){
+  const svg = $("idc-bg");
+  if (!svg) return;
+  let s = "";
+  // fine guilloche waves
+  for (let k = 0; k < 16; k++){
+    let d = "";
+    const amp = 14 + (k % 4) * 3, ph = k * 0.45, y0 = 20 + k * 15;
+    for (let x = 0; x <= 400; x += 8){
+      const y = y0 + Math.sin(x / 38 + ph) * amp + Math.sin(x / 17 + ph * 2) * 4;
+      d += (x === 0 ? "M" : "L") + x + " " + y.toFixed(1) + " ";
+    }
+    s += `<path d="${d}" fill="none" stroke="#fff" stroke-opacity=".07" stroke-width=".8"/>`;
+  }
+  // globe wireframe
+  const cx = 292, cy = 140, R = 130;
+  s += `<g fill="none" stroke="#3b82f6" stroke-opacity=".07" stroke-width=".9">`;
+  s += `<circle cx="${cx}" cy="${cy}" r="${R}"/>`;
+  for (const rx of [100, 66, 30]) s += `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${R}"/>`;
+  s += `<line x1="${cx}" y1="${cy-R}" x2="${cx}" y2="${cy+R}"/>`;
+  for (const f of [-.78, -.5, -.25, 0, .25, .5, .78]){
+    const y = cy + f * R, w = Math.sqrt(R*R - (f*R)*(f*R));
+    s += `<ellipse cx="${cx}" cy="${y.toFixed(1)}" rx="${w.toFixed(1)}" ry="${(w*0.12).toFixed(1)}"/>`;
+  }
+  s += `</g>`;
+  // dotted continents-ish scatter
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  s += `<g fill="#fff" fill-opacity=".08">`;
+  for (let i = 0; i < 170; i++){
+    const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd()) * (R - 6);
+    const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+    const blob = Math.sin(x / 17) + Math.cos(y / 13) + Math.sin((x + y) / 29);
+    if (blob > 0.35) s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.35"/>`;
+  }
+  s += `</g>`;
+  // microtext lines
+  const micro = "SIGILLUM MAGORUM · QUINQUE MAGI · QUATTUOR NATIONES · ";
+  s += `<text x="0" y="250" font-family="Inter,Arial,sans-serif" font-size="5" letter-spacing="1.2" fill="#fff" fill-opacity=".2">${micro.repeat(8)}</text>`;
+  s += `<text x="0" y="8" font-family="Inter,Arial,sans-serif" font-size="5" letter-spacing="1.2" fill="#fff" fill-opacity=".2">${micro.repeat(8)}</text>`;
+  svg.innerHTML = s;
+}
+
+function renderProfileView(){
+  const p = state.profile;
+  $("agent-display-codename").innerText = p.codename;
+  $("agent-display-clearance").innerText = p.clearanceLevel;
+  $("agent-avatar-display-box").innerHTML = p.photoDataUrl
+    ? `<img src="${esc(p.photoDataUrl)}" alt="">`
+    : `<span class="ini">${esc((p.codename || "FOX").substring(0,3).toUpperCase())}</span>`;
+
+  $("input-codename").value = p.codename;
+  $("input-clearance").value = p.clearanceLevel;
+  $("input-primary").value = p.primaryObjective;
+  $("input-secondary").value = p.secondaryObjective;
+  $("input-lang").value = p.languageLevel;
+  $("input-interest").value = p.specialInterest;
+
+  const rows = [["Primary objective", p.primaryObjective], ["Secondary objective", p.secondaryObjective], ["Language", p.languageLevel], ["Interest", p.specialInterest]];
+  $("profile-summary").innerHTML = rows.map(([k, v]) => `<div class="list-item" style="padding:10px 0"><span class="muted small" style="width:120px;flex-shrink:0">${k}</span><span style="font-weight:500;font-size:14px">${esc(v)}</span></div>`).join("");
+  
+  // Cập nhật giao diện thẻ theo quốc gia đang chọn
+  renderCardNationUI();
+}
+
+function handleAvatarFileUpload(event){
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const max = 360;
+      let w = img.width, h = img.height;
+      if (w > h){ if (w > max){ h = Math.round(h*max/w); w = max; } }
+      else if (h > max){ w = Math.round(w*max/h); h = max; }
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      c.getContext("2d").drawImage(img, 0, 0, w, h);
+      state.profile.photoDataUrl = c.toDataURL("image/jpeg", 0.85);
+      saveState(); renderProfileView();
+      showToast("ID photo updated");
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+  event.target.value = "";
+}
+
+function removeAgentPhoto(){
+  state.profile.photoDataUrl = "";
+  saveState(); renderProfileView();
+  showToast("Photo reset");
+}
+
+function toggleDossierEditor(){
+  const form = $("profile-editor-form");
+  const closed = form.classList.toggle("hidden");
+  $("dossier-toggle-btn").innerText = closed ? "Edit" : "Close";
+  $("profile-summary").classList.toggle("hidden", !closed);
+}
+
+function saveProfileChanges(e){
+  e.preventDefault();
+  const p = state.profile;
+  p.codename = $("input-codename").value.trim() || "FOX";
+  p.clearanceLevel = $("input-clearance").value;
+  p.primaryObjective = $("input-primary").value.trim();
+  p.secondaryObjective = $("input-secondary").value.trim();
+  p.languageLevel = $("input-lang").value.trim();
+  p.specialInterest = $("input-interest").value.trim();
+  toggleDossierEditor();
+  saveState(); renderProfileView();
+  showToast("Profile saved");
+}
+
+/* =========================================================
+   OPERATIONS + CALENDAR
+   ========================================================= */
+function renderOperationsView(){
+  $("operations-list-container").innerHTML = state.operations.map(op => {
+    const active = state.today.opId === op.id;
+    const preview = op.events.slice(0, 4).map(e => `<div><span class="num">${esc(e.startTime)}–${esc(e.endTime)}</span><span>${esc(e.title)}</span></div>`).join("");
+    const isCustom = op.id.startsWith("op-custom");
+    return `
+      <div class="op-card ${active ? "active" : ""}">
+        <span class="badge ${active ? "active" : ""}">${active ? "Active today" : esc(op.badge)}</span>
+        <div style="font-weight:700;font-size:17px;margin-top:8px;letter-spacing:-0.02em">${esc(op.name)}</div>
+        <div class="small muted" style="margin-top:2px">${esc(op.code)} · ${op.events.length} blocks</div>
+        <div class="small muted" style="margin-top:6px">${esc(op.objective)}</div>
+        <div class="op-preview">${preview}${op.events.length > 4 ? `<div><span></span><span class="muted">+${op.events.length - 4} more…</span></div>` : ""}</div>
+        <div class="row" style="gap:8px;margin-top:14px">
+          <button class="btn btn-primary btn-sm" onclick="deployOperationFromSelector('${op.id}')">Deploy today</button>
+          ${isCustom ? `<button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="deleteOperation('${op.id}')">Delete</button>` : ""}
+        </div>
+      </div>`;
+  }).join("");
+
+  $("calendar-operations-list").innerHTML = state.operations.map(op => `
+    <div class="list-item">
+      <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">${esc(op.name)}</div><div class="small muted">${esc(op.code)}</div></div>
+      <button class="btn btn-secondary btn-sm" onclick="deployOperationFromSelector('${op.id}')">Deploy</button>
+    </div>`).join("");
+}
+
+function deleteOperation(id){
+  if (!confirm("Delete this Operation?")) return;
+  state.operations = state.operations.filter(o => o.id !== id);
+  saveState(); renderOperationsView();
+  showToast("Operation deleted");
+}
+
+function renderCalendar(){
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth();
+  $("cal-title").innerText = now.toLocaleDateString("en-US", { month:"long", year:"numeric" });
+  const offset = (new Date(y, m, 1).getDay() + 6) % 7;
+  const days = new Date(y, m + 1, 0).getDate();
+  let html = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d => `<div class="cal-dow">${d}</div>`).join("");
+  for (let i = 0; i < offset; i++) html += `<div class="cal-day empty"></div>`;
+  const todayKey = dateKey();
+  for (let d = 1; d <= days; d++){
+    const key = dateKey(new Date(y, m, d));
+    html += `<button class="cal-day num ${key === todayKey ? "today" : ""} ${key === state.calSelected ? "sel" : ""}" onclick="selectCalDay('${key}')">${d}</button>`;
+  }
+  $("cal-grid").innerHTML = html;
+
+  const [sy, sm, sd] = state.calSelected.split("-").map(Number);
+  const selDate = new Date(sy, sm - 1, sd);
+  const op = state.operations.find(o => o.id === suggestedOpIdFor(selDate)) || state.operations[0];
+  $("cal-sel-label").innerText = longDate(selDate);
+  $("cal-sel-op").innerText = op.name;
+  $("cal-sel-desc").innerText = `Suggested: ${op.code} · ${op.objective}`;
+  $("cal-sel-actions").innerHTML = state.calSelected === todayKey
+    ? `<button class="btn btn-primary btn-sm" onclick="deployOperationFromSelector('${op.id}')">Use for today</button>`
+    : `<span class="small muted">This day's schedule is created automatically when it arrives.</span>`;
+}
+function selectCalDay(key){ state.calSelected = key; renderCalendar(); }
+
+function saveTodayAsReusableOperation(){
+  closeToolsSheet();
+  const name = prompt("Name for the new Operation:", "Custom Operation");
+  if (!name) return;
+  const code = `OPERATION CUSTOM-${Math.floor(100 + Math.random()*900)}`;
+  state.operations.push({
+    id:`op-custom-${Date.now()}`, code, name, badge:"USER CREATED",
+    objective:"Archived from daily plan", tag:"PERSISTENT",
+    events: state.today.events.map((e, i) => ({
+      id:`op-ev-${Date.now()}-${i}`, startTime:e.startTime, endTime:e.endTime,
+      title:e.title, category:e.category, description:e.description || ""
+    }))
+  });
+  saveState(); renderOperationsView();
+  showToast(`Saved as ${code}`);
+}
+
+/* =========================================================
+   MISSIONS
+   ========================================================= */
+function renderMissionsView(){
+  const c = $("missions-list-container");
+  if (!state.missions.length){ c.innerHTML = `<div class="muted small" style="padding:24px 0;text-align:center">No missions yet.</div>`; return; }
+  c.innerHTML = state.missions.map(m => `
+    <div class="list-item">
+      <button class="chk ${m.completed ? "done" : ""}" onclick="toggleMissionCompletion('${m.id}')" aria-label="Complete">${CHECK_SVG}</button>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:500;font-size:15px;${m.completed ? "color:var(--text-3);text-decoration:line-through" : ""}">${esc(m.title)}</div>
+        <div class="tl-meta"><span class="num">${esc(m.targetTime)}</span>${catHTML(m.category)}</div>
+      </div>
+      <button class="x-btn" onclick="deleteMission('${m.id}')" aria-label="Delete">✕</button>
+    </div>`).join("");
+}
+function handleCreateMission(e){
+  e.preventDefault();
+  const title = $("mission-input-title").value.trim();
+  if (!title) return;
+  state.missions.unshift({ id:`m-${Date.now()}`, title, category:$("mission-input-cat").value, targetTime:$("mission-input-time").value || "21:00", completed:false });
+  $("mission-input-title").value = "";
+  saveState(); renderMissionsView();
+  showToast("Mission added");
+}
+function toggleMissionCompletion(id){
+  state.missions = state.missions.map(m => m.id === id ? { ...m, completed:!m.completed } : m);
+  saveState(); renderMissionsView();
+}
+function deleteMission(id){
+  state.missions = state.missions.filter(m => m.id !== id);
+  saveState(); renderMissionsView();
+}
+
+/* =========================================================
+   TOOLS + PASTE
+   ========================================================= */
+function openToolsSheet(){ openOverlay("tools-sheet"); }
+function closeToolsSheet(){ closeOverlay("tools-sheet"); }
+function openPasteScheduleModal(){
+  closeToolsSheet();
+  $("paste-raw-textarea").value = "";
+  $("paste-input-view").classList.remove("hidden");
+  $("paste-preview-view").classList.add("hidden");
+  openOverlay("paste-modal");
+}
+function closePasteModal(){ closeOverlay("paste-modal"); }
+function parseRawScheduleText(){
+  const lines = $("paste-raw-textarea").value.split("\n").filter(l => l.trim());
+  const re = /(\d{1,2}:\d{2})\s*(?:[-–—]|to)\s*(\d{1,2}:\d{2})\s*(.*)/i;
+  const parsed = [];
+  lines.forEach((line, i) => {
+    const m = line.match(re);
+    if (!m) return;
+    const title = m[3].trim() || `Block ${i + 1}`;
+    const up = title.toUpperCase();
+    let category = "PERSONAL";
+    if (up.includes("GERMAN") || up.includes("ĐỨC")) category = "GERMAN";
+    else if (/IELTS|READING|ENGLISH/.test(up)) category = "ENGLISH";
+    else if (up.includes("NAIL") || up.includes("MÓNG")) category = "WORK";
+    else if (/TRANSIT|TRAVEL|ĐẾN|→/.test(up)) category = "TRAVEL";
+    else if (up.includes("SLEEP") || up.includes("NGỦ")) category = "SLEEP";
+    parsed.push({
+      id:`parsed-${Date.now()}-${i}`, startTime:m[1].padStart(5,"0"), endTime:m[2].padStart(5,"0"),
+      title, category, description:"", status:"UPCOMING"
+    });
+  });
+  if (!parsed.length){ showToast("Nothing detected. Use: 08:00–12:30 Task name"); return; }
+  state.parsedItems = parsed;
+  $("paste-preview-list").innerHTML = parsed.map(p => `<div class="sched-row"><span class="t num">${esc(p.startTime)} – ${esc(p.endTime)}</span><span class="n">${esc(p.title)}</span></div>`).join("");
+  $("paste-preview-count").innerText = `${parsed.length} blocks detected`;
+  $("paste-input-view").classList.add("hidden");
+  $("paste-preview-view").classList.remove("hidden");
+}
+function commitParsedSchedule(asNewOp){
+  const items = clone(state.parsedItems);
+  if (asNewOp){
+    state.operations.push({
+      id:`op-custom-${Date.now()}`, code:`OPERATION CUSTOM-${Math.floor(100 + Math.random()*900)}`,
+      name:"Parsed Strategy", badge:"IMPORTED", objective:"Imported from pasted text", tag:"IMPORTED",
+      events: items.map(({ status, ...rest }) => rest)
+    });
+    renderOperationsView();
+    showToast("Saved to Operations");
+  } else {
+    pushUndo();
+    state.today = { dateKey:dateKey(), opId:"op-custom-imported", opCode:"OPERATION IMPORTED", opName:"Parsed Strategy", events:items };
+    renderTodayView();
+    showToast("Applied to today");
+  }
+  closePasteModal();
+  saveState();
+}
+
+/* =========================================================
+   STEALTH
+   ========================================================= */
+let stealthTimer = null;
+function toggleStealthMode(on){
+  const o = $("stealth-overlay");
+  if (stealthTimer){ clearInterval(stealthTimer); stealthTimer = null; }
+  if (on){
+    o.classList.add("open");
+    updateStealthView();
+    const tick = () => { $("stealth-clock").innerText = new Date().toLocaleTimeString("en-GB"); };
+    tick();
+    stealthTimer = setInterval(tick, 1000);
+  } else o.classList.remove("open");
+}
+function updateStealthView(){
+  const idx = getCurrentEventIndex();
+  const ev = state.today.events[idx];
+  const next = state.today.events[idx + 1];
+  if (ev){
+    $("stealth-op-code").innerText = state.today.opCode;
+    $("stealth-title").innerText = ev.title;
+    $("stealth-range").innerText = `${ev.startTime} – ${ev.endTime}`;
+    $("stealth-desc").innerText = ev.description || "";
+  }
+  $("stealth-next-preview").innerText = next ? `Next · ${next.startTime} ${next.title}` : "Schedule complete";
+}
+
+/* =========================================================
+   TABS / BACKUP / RESET
+   ========================================================= */
+function switchTab(id){
+  document.querySelectorAll(".pane").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+  $(`tab-content-${id}`).classList.add("active");
+  $(`tab-btn-${id}`).classList.add("active");
+  if (id === "today") renderTodayView();
+  if (id === "operations") renderOperationsView();
+  if (id === "calendar"){ renderOperationsView(); renderCalendar(); }
+  if (id === "missions") renderMissionsView();
+  if (id === "control") renderProfileView();
+  window.scrollTo({ top:0 });
+}
+function exportBackupData(){
+  const dump = JSON.stringify({ profile:state.profile, operations:state.operations, today:state.today, missions:state.missions }, null, 2);
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([dump], { type:"application/json" }));
+  a.download = `agent-hq-backup-${Date.now()}.json`;
+  a.click();
+  showToast("Backup downloaded");
+}
+function factoryResetDatabase(){
+  if (!confirm("Restore everything to defaults? Custom Operations and missions will be removed.")) return;
+  state.profile = clone(INITIAL_PROFILE);
+  state.operations = clone(INITIAL_OPERATIONS);
+  state.missions = clone(INITIAL_MISSIONS);
+  state.today = buildToday(state.operations.find(o => o.id === suggestedOpIdFor(new Date())) || state.operations[0]);
+  state.undoStack = [];
+  $("undo-btn").classList.add("hidden");
+  saveState();
+  renderTodayView(); renderProfileView(); renderOperationsView(); renderMissionsView();
+  showToast("Defaults restored");
+}
+
+/* =========================================================
+   STARTUP: Federatio Magi auto dismiss
+   ========================================================= */
+let startupDone = false;
+function completeStartup(){
+  if (startupDone) return;
+  startupDone = true;
+  const s = document.getElementById("startup-splash");
+  if (s) {
+    s.classList.add("out");
+    setTimeout(() => { 
+      s.classList.add("hidden"); 
+      try { startFieldBriefing(); } catch(err){}
+    }, 400);
+  }
+}
+
+setTimeout(completeStartup, 3200);
+
+document.addEventListener("DOMContentLoaded", () => {
+  try { setupDynamicPwaIcons(); } catch(e){}
+  try { buildIdBackground(); } catch(e){}
+  try { renderProfileView(); } catch(e){}
+  try { renderTodayView(); } catch(e){}
+  try { renderOperationsView(); } catch(e){}
+  try { renderMissionsView(); } catch(e){}
+
+  const steps = [
+    [0, "SYNCHRONIZING MAGI NETWORK…"],
+    [700, "CONNECTING TO THE 5 MAGI CITADELS…"],
+    [1500, "VERIFYING HIGH COUNCIL ACCESS…"],
+    [2300, "SECURITY CLEARANCE: LEVEL 04 GRANTED"],
+    [2850, "WELCOME TO SIGILLUM MAGORUM"]
+  ];
+  steps.forEach(([t, msg]) => {
+    setTimeout(() => {
+      const el = document.getElementById("splash-status");
+      if (el && !startupDone) el.innerText = msg;
+    }, t);
+  });
+});
+
+setInterval(() => {
+  const todayTab = document.getElementById("tab-content-today");
+  if (todayTab && todayTab.classList.contains("active") && startupDone) {
+    renderTodayView();
+  }
+}, 60000);
+</script>
+</body>
+</html>
