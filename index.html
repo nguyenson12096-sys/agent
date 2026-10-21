@@ -374,49 +374,71 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
   white-space: nowrap;
 }
 
-/* KHU VỰC TRUNG TÂM: CAO HẲN 165PX CHIẾM TRỌN 2 ĐƯỜNG ĐỎ */
+/* Chia tỷ lệ co giãn tự động theo màn hình điện thoại */
 .ais-middle-grid {
-  display: grid;
-  grid-template-columns: 170px 1fr 125px; /* Cột logo 160px, ảnh 125px */
-  align-items: center;
-  justify-items: center;
-  gap: 6px;
-  height: 155px; /* Chiều cao tối đa lấp đầy khoảng trống giữa 2 vạch kẻ */
-  margin: 0;
+  display: grid !important;
+  grid-template-columns: 120px 1fr 90px !important; /* Thu gọn cột logo và ảnh để lọt trọn vào màn hình điện thoại */
+  align-items: center !important;
+  justify-items: center !important;
+  gap: 4px !important;
+  height: 155px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
 }
 
-/* 1. Logo tròn phóng to kịch trần 160px x 160px */
+/* Con dấu Alaska co nhẹ lại cho vừa khung điện thoại */
 .ais-seal-col {
-  width: 177px;
-  height: 177px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translate(-7px, -12px);
+  width: 125px !important;
+  height: 125px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: translate(0px, 0px) !important;
 }
 .ais-seal-col img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.22));
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.22)) !important;
 }
 
-/* 2. Chữ AIS kéo dài cao vút 165px chạm sát 2 vạch kẻ */
+/* Chữ AIS thu gọn bề ngang lại, cao vút vừa vặn ở giữa */
 .ais-center-letters {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 115px; /* Tăng cỡ chữ lên 160px */
-  font-weight: 900;
-  color: #1a3052;
-  line-height: 0.75;
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: -0.05em;
-  transform: translate(-21px, -19px) scaleY(1.86); /* Kéo chữ dài thẳng tắp đụng 2 mép */
-  user-select: none;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 100px !important;          /* Hạ cỡ chữ từ 115px xuống 100px để nhường chỗ cho ảnh thẻ bên phải */
+  font-weight: 900 !important;
+  color: #1a3052 !important;
+  line-height: 0.75 !important;
+  text-align: center !important;
+  font-family: 'Montserrat', sans-serif !important;
+  letter-spacing: -0.06em !important;
+  transform: translate(0px, 8px) scaleY(1.7) !important;
+  user-select: none !important;
+}
+
+/* Khung ảnh thẻ nằm gọn gàng bên lề phải, không bị tràn ra ngoài màn hình */
+.ais-photo-col {
+  width: 90px !important;
+  height: 125px !important;
+  border-radius: 4px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+  overflow: hidden !important;
+  background: #cbd5e1 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: translate(0px, 0px) scale(1) !important; /* Xóa bỏ lệnh dịch làm văng ảnh ra ngoài */
+}
+.ais-photo-col img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 
 /* 3. Khung ảnh kéo dài cao 158px tương xứng */
