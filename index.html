@@ -374,66 +374,66 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
   white-space: nowrap;
 }
 
-/* KHU VỰC TRUNG TÂM: CAO HẲN 165PX CHIẾM TRỌN 2 ĐƯỜNG ĐỎ */
+/* Khôi phục không gian rộng rãi cho bộ 3 phần tử ở giữa */
 .ais-middle-grid {
   display: grid;
-  grid-template-columns: 110px 1fr 85px; /* Thu gọn tỷ lệ 3 cột vừa vặn màn hình điện thoại */
+  grid-template-columns: 130px 1fr 100px;
   align-items: center;
   justify-items: center;
   gap: 4px;
-  height: 145px;
+  height: 165px; /* Giữ độ cao chuẩn để chạm 2 vạch kẻ */
   margin: 0;
   width: 100%;
-  overflow: hidden;
 }
 
-/* 1. Thu gọn con dấu Alaska vừa vặn */
+/* 1. Logo tròn to rõ nét */
 .ais-seal-col {
-  width: 110px;
-  height: 110px;
+  width: 135px;
+  height: 135px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: none; /* Bỏ lệch tọa độ cũ */
+  transform: translate(-4px, -4px);
 }
 .ais-seal-col img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.22));
 }
 
-/* 2. Chữ AIS co lại vừa khung giữa */
+/* 2. Chữ AIS to cao vút, kéo dài chạm sát 2 vạch kẻ */
 .ais-center-letters {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 85px; /* Giảm cỡ chữ từ 115px xuống 85px để không lấn sang 2 bên */
+  font-size: 112px;
   font-weight: 900;
   color: #1a3052;
   line-height: 0.75;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
-  letter-spacing: -0.04em;
-  transform: scaleY(1.45);
+  letter-spacing: -0.05em;
+  transform: translate(-10px, -6px) scaleY(1.75); /* Kéo chữ dài chạm 2 mép */
   user-select: none;
 }
 
-/* 3. Khung ảnh thẻ hiện đầy đủ bên phải không bị đẩy tràn */
+/* 3. Khung ảnh thẻ cân đối bên phải */
 .ais-photo-col {
-  width: 80px;
-  height: 105px;
+  width: 95px;
+  height: 135px;
   border-radius: 4px;
   border: 1.5px solid #cbd5e1;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   overflow: hidden;
   background: #cbd5e1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: none; /* Bỏ lệch tọa độ cũ */
+  transform: translate(-4px, -4px);
 }
 .ais-photo-col img {
   width: 100%;
