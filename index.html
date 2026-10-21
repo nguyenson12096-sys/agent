@@ -191,28 +191,29 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
   padding: 16px 20px 20px;
   transition: all .3s ease;
 }
-/* ÉP RIÊNG TẤM THẺ TỰ ĐỘNG XOAY NGANG 90 ĐỘ TRÊN ĐIỆN THOẠI */
+/* KHUNG CUỘN NGANG THẺ TO ĐẸP TRÊN ĐIỆN THOẠI */
 @media (max-width: 600px) {
-  #tab-content-control {
-    overflow-x: hidden;
-  }
-  
   .idc-rotate-container {
     width: 100%;
-    height: 480px; /* Tạo khoảng trống đủ chiều dài cho thẻ khi dựng đứng */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0 20px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 0;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .idc-rotate-container::-webkit-scrollbar {
+    display: none;
   }
 
   .idc {
-    width: 460px !important;       /* Chiều dài thẻ khi nằm ngang */
-    min-height: 285px !important;
-    height: 285px !important;
-    transform: rotate(90deg);      /* TỰ ĐỘNG XOAY NGANG 90 ĐỘ */
-    transform-origin: center center;
-    flex-shrink: 0;
+    width: 440px !important;
+    min-width: 440px !important;
+    height: 295px !important;
+    min-height: 295px !important;
+    transform: none !important;
+    position: static !important;
+    margin: 0 auto !important;
   }
 }
 .idc-bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
@@ -1271,7 +1272,7 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
     </div>
 
     <!-- TẤM THẺ ĐẶC VỤ TỐI MẬT (HỖ TRỢ 2 TEMPLATE RIÊNG BIỆT) -->
-    <div class="idc-rotate-container"></div>
+    <div class="idc-rotate-container">
     <div id="agent-id-card-element" class="idc" style="margin-top:12px">
       
       <!-- ================= TEMPLATE 1: REIM EMPIRE (CIA DARK STYLE) ================= -->
@@ -1413,7 +1414,7 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
         </div>
       </div> <!-- đóng của agent-id-card-element -->
   </div>   <!-- THẺ ĐÓNG CỦA idc-rotate-container VỪA THÊM -->
-
+</div>
     <div class="card" style="margin-top:14px">
       <div class="row between">
         <span style="font-weight:600">Personal file</span>
