@@ -191,6 +191,30 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
   padding: 16px 20px 20px;
   transition: all .3s ease;
 }
+/* ÉP RIÊNG TẤM THẺ TỰ ĐỘNG XOAY NGANG 90 ĐỘ TRÊN ĐIỆN THOẠI */
+@media (max-width: 600px) {
+  #tab-content-control {
+    overflow-x: hidden;
+  }
+  
+  .idc-rotate-container {
+    width: 100%;
+    height: 480px; /* Tạo khoảng trống đủ chiều dài cho thẻ khi dựng đứng */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0 20px 0;
+  }
+
+  .idc {
+    width: 460px !important;       /* Chiều dài thẻ khi nằm ngang */
+    min-height: 285px !important;
+    height: 285px !important;
+    transform: rotate(90deg);      /* TỰ ĐỘNG XOAY NGANG 90 ĐỘ */
+    transform-origin: center center;
+    flex-shrink: 0;
+  }
+}
 .idc-bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 .idc-sheen {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -377,23 +401,21 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
 /* Khôi phục không gian rộng rãi cho bộ 3 phần tử ở giữa */
 .ais-middle-grid {
   display: grid;
-  grid-template-columns: 130px 1fr 100px;
+  grid-template-columns: 160px 1fr 125px;
   align-items: center;
   justify-items: center;
-  gap: 4px;
-  height: 165px; /* Giữ độ cao chuẩn để chạm 2 vạch kẻ */
+  gap: 8px;
+  height: 165px;
   margin: 0;
   width: 100%;
 }
 
-/* 1. Logo tròn to rõ nét */
 .ais-seal-col {
-  width: 135px;
-  height: 135px;
+  width: 160px;
+  height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(-4px, -4px);
 }
 .ais-seal-col img {
   width: 100%;
@@ -402,28 +424,26 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
   filter: drop-shadow(0 4px 10px rgba(0,0,0,0.22));
 }
 
-/* 2. Chữ AIS to cao vút, kéo dài chạm sát 2 vạch kẻ */
 .ais-center-letters {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 112px;
+  font-size: 135px;
   font-weight: 900;
   color: #1a3052;
   line-height: 0.75;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
-  letter-spacing: -0.05em;
-  transform: translate(-10px, -6px) scaleY(1.75); /* Kéo chữ dài chạm 2 mép */
+  letter-spacing: -0.04em;
+  transform: scaleY(1.4);
   user-select: none;
 }
 
-/* 3. Khung ảnh thẻ cân đối bên phải */
 .ais-photo-col {
-  width: 95px;
-  height: 135px;
+  width: 115px;
+  height: 155px;
   border-radius: 4px;
   border: 1.5px solid #cbd5e1;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
@@ -433,7 +453,6 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(-4px, -4px);
 }
 .ais-photo-col img {
   width: 100%;
@@ -1252,6 +1271,7 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
     </div>
 
     <!-- TẤM THẺ ĐẶC VỤ TỐI MẬT (HỖ TRỢ 2 TEMPLATE RIÊNG BIỆT) -->
+    <div class="idc-rotate-container"></div>
     <div id="agent-id-card-element" class="idc" style="margin-top:12px">
       
       <!-- ================= TEMPLATE 1: REIM EMPIRE (CIA DARK STYLE) ================= -->
@@ -1391,9 +1411,8 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
             </div>
           </div>
         </div>
-      </div>
-
-    </div>
+      </div> <!-- đóng của agent-id-card-element -->
+  </div>   <!-- THẺ ĐÓNG CỦA idc-rotate-container VỪA THÊM -->
 
     <div class="card" style="margin-top:14px">
       <div class="row between">
